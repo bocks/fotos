@@ -7,9 +7,9 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "build": "webpack --progress --inline",
-    "start": "webpack-dev-server --progress --inline",
-    "prod": "webpack --progress --colors --watch",
+    "build": "webpack -d --progress --inline",
+    "start": "webpack-dev-server -d --progress --inline",
+    "prod": "webpack -d --progress --colors --watch",
     "lint": "eslint src"
   },
   "repository": {
