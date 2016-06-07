@@ -2,16 +2,16 @@
 
 https://waffle.io/formidable-coffee/fotos
 
-##Table of Contents
+## Table of Contents
 1. [Project Overview] (#Project-Overview)
 2. [Getting Started] (#Getting-Started)
 3. [Technologies] (#Technologies)
 4. [Team] (#Team)
 5. [Contributing] (#Contributing)
 
-##Project Overview <a name="Project-Overview"></a>
+## Project Overview <a name="Project-Overview"></a>
 
-Most people have hundreds of photos stored in countless websites. It takes a significant amount of time to scroll through all of your photos to find your best memories from years ago. With Foto Time, we give you access to your memories. Choose a time range and we'll pick out a few photos from that time period. All of your photo stories are saved with Foto Time so you can review them anytime. 
+Most people have hundreds of photos stored in countless websites. It takes a significant amount of time to scroll through all of your photos to find your best memories from years ago. With Foto Time, we give you access to your memories. Choose a time range and we'll pick out a few photos from that time period. All of your photo stories are saved with Foto Time so you can review them anytime.
 
 ### Login with Facebook:
 ![login](https://cloud.githubusercontent.com/assets/17868916/15845438/f1518f9c-2c27-11e6-8f01-d8d4ed98cc33.png)
@@ -22,12 +22,12 @@ Most people have hundreds of photos stored in countless websites. It takes a sig
 
 ## Getting Started <a name="Getting-Started"></a>
 
-### Project Setup 
+### Project Setup
 
 1. Install dependencies
 
     ```
-    $ npm install; 
+    $ npm install;
     ```
 
 ### Setup Database
@@ -79,6 +79,11 @@ Or
     ```
 2. Your server is now live at http://localhost:4000
 
+### Initial Build
+
+    npm install -g webpack
+    webpack --progress --inline
+
 ### Making changes
 
 1. Changes to React components that interact with our server and database
@@ -87,20 +92,20 @@ Or
     $ npm prod
     ```
 2. Monitor changes to just front end components
-    
+
     ```
     $ npm start
     ````
 ## Technologies <a name="Technologies"></a>
 
-#### Front end: 
+#### Front end:
 - React
 - Babel
 - React Router
 - React Bootstrap
 - Facebook Graph API/SDK
 
-#### Back end: 
+#### Back end:
 - Express
 - Node
 - Bookshelf/Knex
