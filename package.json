@@ -7,7 +7,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "build": "webpack --progress --inline"
+    "build": "webpack --progress --inline",
     "start": "webpack-dev-server --progress --inline",
     "prod": "webpack --progress --colors --watch"
   },
