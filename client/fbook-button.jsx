@@ -24,7 +24,7 @@ class FacebookButton extends React.Component {
         xfbml      : true,
         version    : 'v2.6'
       });
-      console.log('init fbook', window.FB);
+      console.log('initializing fbook', window.FB);
     };
 
     (function(d, s, id){
@@ -50,9 +50,11 @@ class FacebookButton extends React.Component {
               self.setState({authenticated: true});
               console.log('in api call',response)
               $.post('/signin', {name: response.name, userId: response.id, access_token: access_token}).done(function(data) {
-                console.log('success');
-                window.fbId = response.id;
-                window.access_token = access_token;
+                console.log('success in FB.getLoginStatus');
+                console.log('data', data);  //empty
+                console.log('response', response); // sends back name and id
+                sessionStorage.setItem('fbId', response.id);
+                sessionStorage.setItem('access_token', access_token);
                 hashHistory.push('dashboard');
               }).fail(function(err) {
                 console.log(err, 'error in checkLoginState');
@@ -86,6 +88,7 @@ class FacebookButton extends React.Component {
 
 
   render() {
+    console.log('rendering fbook-button.jsx');
     return (
       <div>
         <button className='facebook-login' onClick={this.handleClick}>Log in with Facebook</button>

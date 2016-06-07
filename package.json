@@ -7,10 +7,11 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "build": "webpack --progress --inline",
-    "start": "webpack-dev-server --progress --inline",
-    "prod": "webpack --progress --colors --watch",
-    "lint": "eslint src"
+    "build": "webpack -d --progress --inline --watch",
+    "start": "webpack-dev-server -d --progress --inline",
+    "prod": "webpack -d --progress --colors --watch",
+    "lint": "eslint src",
+    "serve": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom'; 
+import ReactDOM from 'react-dom';
 import Arc from './arc';
-import $ from 'jquery'; 
+import $ from 'jquery';
 
 
 // expecting to be passed an array of urls in props
@@ -10,44 +10,46 @@ class Feed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      arcs: [] 
+      arcs: [],
+      count: 0
     }
     // this.componentDidMount.bind(this);
     // this.getData.bind(this);
   }
 
   componentDidMount() {
-    console.log('cdm'); 
+    console.log('cdm');
     this.getData();
   }
 
   getData() {
-    console.log(fbId);
+    // console.log(localStorage.getItem('fbId'));
 
-    var self = this; 
-    $.get('/dashboard', {user_id: fbId}, function(data) {
+    var self = this;
+    $.get('/dashboard', {user_id: localStorage.getItem('fbId')}, function(data) {
       console.log("Data from db =>", data);
-    
-      // data = data.filter(function(val) {
-      //   console.log(val); 
-      //   if (val.length > 0) {
-      //     self.state.arcs.push(val); 
-      //     console.log('filter function', self.state.arcs); 
-      //     self.forceUpdate(); 
 
-      //     return true; 
+      // data = data.filter(function(val) {
+      //   console.log(val);
+      //   if (val.length > 0) {
+      //     self.state.arcs.push(val);
+      //     console.log('filter function', self.state.arcs);
+      //     self.forceUpdate();
+
+      //     return true;
       //   } else {
-      //     return false; 
+      //     return false;
       //   }
-      // }); 
+      // });
 
       this.setState({arcs: data.reverse()});
-      // console.log(this.state.arcs); 
+      // console.log(this.state.arcs);
       // console.log('state is: ', this.state.arcs);
     }.bind(this));
   }
 
   render() {
+    console.log('rendering feed.jsx');
     return (
       <div>
         <h2 className="page-title">Your Stories</h2>
@@ -55,8 +57,8 @@ class Feed extends React.Component {
           {this.state.arcs.map((arc) => {
             // console.log(arc);
             return (
-            <Arc photoArc={arc} />
-            );} 
+            <Arc key={this.state.count++} photoArc={arc} />
+            );}
           )}
         </div>
       </div>

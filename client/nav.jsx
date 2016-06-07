@@ -7,22 +7,22 @@ import { Link, hashHistory } from 'react-router';
 var linkStyle = {marginTop: '15px', color:'white'};
 
 var topNav = (props) => (
-	<Navbar className="navbar">		
+	<Navbar className="navbar">
 		<Nav className="links">
       <NavItem className="brand">FotoTime</NavItem>
-			<NavItem style={linkStyle}><Link to="/dashboard" activeClassName="active" style={linkStyle}>Dashboard</Link></NavItem>
-			<NavItem style={linkStyle}><Link to="/create" activeClassName="active" style={linkStyle}>Create new story</Link></NavItem>
+			<Link style={linkStyle} to="/dashboard" activeClassName="active" style={linkStyle}>Dashboard</Link>
+			<Link style={linkStyle} to="/create" activeClassName="active" style={linkStyle}>Create new story</Link>
 		</Nav>
 		<Nav pullRight>
 			<NavItem className="logout" onClick={() => {
-        if (window.FB) { 
+        if (window.FB) {
         	FB.logout();
         }
-        hashHistory.push('login'); 
+        hashHistory.push('login');
       }}>Logout</NavItem>
 		</Nav>
  </Navbar>
 );
 
-export default topNav; 
+export default topNav;
 
