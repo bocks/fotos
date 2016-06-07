@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery'; 
+import $ from 'jquery';
 import { hashHistory } from 'react-router';
 
 class Form extends React.Component {
@@ -7,14 +7,14 @@ class Form extends React.Component {
 		super(props);
 		this.state = {
 			startDate: null,
-			endDate: null, 
+			endDate: null,
 			options: null
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.dropdownSelect = this.dropdownSelect.bind(this);
-    this.submitHandler = this.submitHandler.bind(this); 
+    this.submitHandler = this.submitHandler.bind(this);
 	}
-  
+
   submitHandler (startDate, endDate, options) {
     console.log(startDate, endDate, 'in submit handler');
     FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate, function (response) {
@@ -29,29 +29,30 @@ class Form extends React.Component {
         contentType: "application/json",
         success: function() {
           console.log('success');
-          hashHistory.push('dashboard');  
+          hashHistory.push('dashboard');
         }
       });
-    }); 
+    });
   }
 
 	handleSubmit (e) {
 		e.preventDefault();
-		console.log("start is", this.state.startDate); 
-		console.log("end is", this.state.endDate); 
+		console.log("start is", this.state.startDate);
+		console.log("end is", this.state.endDate);
 
     this.submitHandler(this.state.startDate, this.state.endDate);
 
 	}
 
 	dropdownSelect (e) {
-		this.setState({options: e.target.value}); 
+		this.setState({options: e.target.value});
 	}
 
 	render () {
+    console.log('rendering form.jsx');
 		return (
 			<div className='inputForm'>
-        <form> 
+        <form>
           <p className='inputs'>
 					 <label>Start Date: </label>
            <input type="date" name="startDate" className="datePicker" onChange={(event)=> this.setState({startDate: event.target.value})} />
@@ -65,7 +66,7 @@ class Form extends React.Component {
 						<option value="filter1">Photos of me</option>
 						<option value="filter2"></option>
 						<option value="filter3">Photos in other countries</option>
-					</select> */} 
+					</select> */}
 					<p>
             <button type="submit" onClick={this.handleSubmit}>See your photos</button>
 				  </p>
@@ -73,7 +74,7 @@ class Form extends React.Component {
       </div>
 		)
 	}
-	
+
 };
 
-export default Form; 
+export default Form;
