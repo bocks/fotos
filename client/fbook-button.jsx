@@ -1,29 +1,29 @@
-import React from 'react'; 
-import $ from 'jquery'; 
+import React from 'react';
+import $ from 'jquery';
 import { hashHistory } from 'react-router';
 
 
 class FacebookButton extends React.Component {
   constructor (props) {
-    super(props); 
- 
+    super(props);
+
     this.state = {
       authenticated: false,
-      userMessage: "", 
+      userMessage: "",
     }
 
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount () {
-    var self = this; 
+    var self = this;
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : '1171407722880061',
+        appId      : '828594207285610',
         xfbml      : true,
         version    : 'v2.6'
       });
-      console.log('init fbook', window.FB);
+      console.log('initializing fbook', window.FB);
     };
 
     (function(d, s, id){
@@ -36,29 +36,30 @@ class FacebookButton extends React.Component {
   }
 
   checkLoginState () {
-    var self = this;  
+    var self = this;
     FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {
-        self.setState({authenticated: true});     
+        self.setState({authenticated: true});
       } else {
         FB.login(function(response) {
           console.log(response, 'outside api call')
-          var access_token = response.authResponse.accessToken; 
+          var access_token = response.authResponse.accessToken;
           if (response.authResponse) {
             FB.api('/me', function(response) {
               self.setState({authenticated: true});
               console.log('in api call',response)
               $.post('/signin', {name: response.name, userId: response.id, access_token: access_token}).done(function(data) {
-                console.log('success'); 
-                window.fbId = response.id; 
-                window.access_token = access_token; 
-                hashHistory.push('dashboard'); 
+                console.log('success', data, response);
+                localStorage.setItem('fbId', response.id);
+                localStorage.setItem('access_token', access_token);
+
+                hashHistory.push('dashboard');
               }).fail(function(err) {
-                console.log(err, 'error in checkLoginState'); 
-              }); 
-            }); 
+                console.log(err, 'error in checkLoginState');
+              });
+            });
           } else {
-            console.log('user did not authenticate'); 
+            console.log('user did not authenticate');
           }
         }, {scope: 'public_profile,user_photos'})
       }
@@ -66,31 +67,32 @@ class FacebookButton extends React.Component {
   }
 
   logout () {
-    var self = this; 
-    console.log('is this working?'); 
+    var self = this;
+    console.log('is this working?');
     FB.logout(function(response) {
-      self.setState({authenticated: false}); 
-      hashHistory.push('/login'); 
+      self.setState({authenticated: false});
+      hashHistory.push('/login');
     })
   }
 
   handleClick (e) {
-    e.preventDefault(); 
+    e.preventDefault();
     if (this.state.authenticated) {
-      this.logout(); 
+      this.logout();
     } else {
-      this.checkLoginState();  
+      this.checkLoginState();
     }
   }
 
 
   render() {
+    console.log('rendering fbook-button.jsx');
     return (
       <div>
         <button className='facebook-login' onClick={this.handleClick}>Log in with Facebook</button>
       </div>
-    ); 
+    );
   }
 }
 
-export default FacebookButton; 
+export default FacebookButton;

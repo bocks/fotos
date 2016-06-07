@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom'; 
+import ReactDOM from 'react-dom';
 import Lightbox from 'react-images';
 
 
@@ -47,7 +47,7 @@ class Arc extends React.Component {
     this.gotoNext();
   }
 
-  
+
   renderGallery () {
     if (!this.props.photoArc) return;
     const gallery = this.props.photoArc.map((obj, i) => {
@@ -74,8 +74,9 @@ class Arc extends React.Component {
       </div>
     );
   }
-  
+
     render () {
+      console.log('rendering arc.jsx');
       return (
         <div style={styles.container}>
             {this.renderGallery()}
