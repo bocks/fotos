@@ -82,7 +82,7 @@ Or
 ### Initial Build
 
     npm install -g webpack
-    webpack --progress --inline
+    npm run build
 
 ### Making changes
 
