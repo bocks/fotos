@@ -50,7 +50,9 @@ class FacebookButton extends React.Component {
               self.setState({authenticated: true});
               console.log('in api call',response)
               $.post('/signin', {name: response.name, userId: response.id, access_token: access_token}).done(function(data) {
-                console.log('success', data, response);
+                console.log('success in FB.getLoginStatus');
+                console.log('data', data);  //empty
+                console.log('response', response); // sends back name and id
                 sessionStorage.setItem('fbId', response.id);
                 sessionStorage.setItem('access_token', access_token);
                 hashHistory.push('dashboard');

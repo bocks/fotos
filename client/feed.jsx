@@ -10,7 +10,8 @@ class Feed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      arcs: []
+      arcs: [],
+      count: 0
     }
     // this.componentDidMount.bind(this);
     // this.getData.bind(this);
@@ -22,7 +23,7 @@ class Feed extends React.Component {
   }
 
   getData() {
-    console.log(localStorage.getItem('fbId'));
+    // console.log(localStorage.getItem('fbId'));
 
     var self = this;
     $.get('/dashboard', {user_id: localStorage.getItem('fbId')}, function(data) {
@@ -56,7 +57,7 @@ class Feed extends React.Component {
           {this.state.arcs.map((arc) => {
             // console.log(arc);
             return (
-            <Arc key={arc.id} photoArc={arc} />
+            <Arc key={this.state.count++} photoArc={arc} />
             );}
           )}
         </div>
