@@ -7,9 +7,9 @@
     "node": ">=4.0.0"
   },
   "scripts": {
+    "build": "webpack --progress --inline",
     "start": "webpack-dev-server --progress --inline",
     "prod": "webpack --progress --colors --watch"
-
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/formidable-coffee/fotos#readme",
   "dependencies": {
+    "bluebird": "^3.4.0",
     "body-parser": "^1.15.1",
     "bookshelf": "^0.9.1",
     "express": "^4.4.5",
