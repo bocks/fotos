@@ -8,9 +8,9 @@ import Feed from './feed';
 class Main extends React.Component {
   constructor (props) {
     super(props);
-    this.submitHandler = this.submitHandler.bind(this); 
+    this.submitHandler = this.submitHandler.bind(this);
   }
-  
+
   submitHandler (startDate, endDate, options) {
     $.post({
       url: '/create',
@@ -20,25 +20,26 @@ class Main extends React.Component {
         options: options
       },
       success: function() {
-        console.log('success'); 
+        console.log('success');
       }
     })
   }
 
   render () {
+    console.log('rendering main.jsx');
     return (
       <div>
         <header>
           <Nav />
         </header>
 
-        
+
         {this.props.children}
 
-      
+
       </div>
-    ); 
+    );
   }
-}; 
+};
 
 export default Main;
