@@ -21,7 +21,8 @@ class Arc extends React.Component {
   
   removeGallery () {
     // ajax call to database
-    console.log('remove gallery');
+    // if this.props.photoArc[0] then make ajax request with data this.props.photoArc[0].arcId
+    console.log(this.props.photoArc[0]);
   }
 
   openLightbox (index, event) {
@@ -80,7 +81,7 @@ class Arc extends React.Component {
     return (
       <div className="section" style={styles.gallery}>
         {gallery}
-        <button onClick={this.removeGallery}>Remove</button>
+        <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove</button>
       </div>
     );
   }
