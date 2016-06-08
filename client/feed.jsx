@@ -18,7 +18,6 @@ class Feed extends React.Component {
   }
 
   componentDidMount() {
-    console.log('cdm');
     this.getData();
   }
 
@@ -53,12 +52,11 @@ class Feed extends React.Component {
       <div>
         <h2 className="page-title">Your Stories</h2>
         <div className="gallery-container">
-          {this.state.arcs.map((arc) => {
-            // console.log(arc);
-            return (
-            <Arc key={this.state.count++} photoArc={arc} />
-            );}
-          )}
+         {this.state.arcs.map((arc) => {
+           return (
+           <Arc key={this.state.count++} photoArc={arc} />
+           );}
+         )}
         </div>
       </div>
     )
@@ -69,8 +67,8 @@ class Feed extends React.Component {
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated
-Feed.propTypes = {
-  arcs: React.PropTypes.array.isRequired
-};
+// Feed.propTypes = {
+//   arcs: React.PropTypes.array.isRequired
+// };
 
 export default Feed;
