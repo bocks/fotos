@@ -23,10 +23,9 @@ class Feed extends React.Component {
   }
 
   getData() {
-    // console.log(localStorage.getItem('fbId'));
 
     var self = this;
-    $.get('/dashboard', {user_id: localStorage.getItem('fbId')}, function(data) {
+    $.get('/dashboard', {user_id: sessionStorage.getItem('fbId')}, function(data) {
       console.log("Data from db =>", data);
 
       // data = data.filter(function(val) {
