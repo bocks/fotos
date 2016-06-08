@@ -37,7 +37,8 @@
     "react-bootstrap": "^0.29.4",
     "react-dom": "^15.1.0",
     "react-images": "^0.4.6",
-    "react-router": "^2.4.1"
+    "react-router": "^2.4.1",
+    "react-rpg": "^2.0.0"
   },
   "babel": {
     "presets": [
