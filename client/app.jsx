@@ -6,6 +6,7 @@ import Login from './login';
 import Main from './main';
 import Feed from './feed';
 import Form from './form';
+import FacebookPost from './fbook-post';
 // import { Button } from 'react-bootstrap';
 // import $ from 'jquery';
 
@@ -18,6 +19,7 @@ render((
     <Route component={Main}>
       <Route path='create' component={Form}/>
       <Route path='dashboard' component={Feed}/>
+      <Route path='post' component={FacebookPost}/>
     </Route>
   </Router>
   ), document.getElementsByClassName('mounting')[0]);

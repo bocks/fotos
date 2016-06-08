@@ -63,7 +63,7 @@ class FacebookButton extends React.Component {
           } else {
             console.log('user did not authenticate');
           }
-        }, {scope: 'public_profile,user_photos'})
+        }, {scope: 'public_profile, user_photos, publish_actions'})
       }
     }, true)
   }
