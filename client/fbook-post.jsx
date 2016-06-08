@@ -3,7 +3,15 @@ import React from 'react';
 import { hashHistory } from 'react-router';
 
 class FacebookPost extends React.Component {
-  componentDidMount () {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hasPosted: false
+    }
+  }
+
+  componentDidMount() {
     var self = this;
     window.fbAsyncInit = function() {
       FB.init({
@@ -24,11 +32,9 @@ class FacebookPost extends React.Component {
      }(document, 'script', 'facebook-jssdk'));
   }
 
-  shareCollageToFacebook () {
-    // FB.login(function(response) {
-    //   console.log('shareCollageToFacebook FB.login', response);
-
+  shareCollageToFacebook() {
     console.log('shareCollageToFacebook Called');
+    this.setState({ hasPosted: 'Saving...' });
 
     FB.api(
       'me/photos',
@@ -41,19 +47,23 @@ class FacebookPost extends React.Component {
       },
       function(response) {
         console.log('FacebookPost shareCollageToFacebook', response);
-      }
+        if (response.id) {
+          console.log('FacebookPost shareCollageToFacebook Success');
+          this.setState({ hasPosted: true });
+        }
+      }.bind(this)
     );
-  // }, {scope: 'public_profile, user_photos, publish_actions'});
 
   }
 
-  render () {
+  render() {
     console.log('FacebookPost render');
 
     return (
       <div>
         <h1>FacebookPost Render</h1>
-        <button type="button" onClick={this.shareCollageToFacebook}>Share Collage</button>
+        <button type="button" onClick={this.shareCollageToFacebook.bind(this)}>Share Collage</button>
+        <p>{this.state.hasPosted.toString()}</p>
       </div>
     )
   }
