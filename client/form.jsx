@@ -20,7 +20,7 @@ class Form extends React.Component {
     FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate, function (response) {
       console.log(response);
       var data = {
-              id: window.fbId,
+              id: sessionStorage.getItem('fbId').fbId,
               photos: response
             };
       $.post({
