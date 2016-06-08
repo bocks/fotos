@@ -114,6 +114,10 @@
   border-radius: 3px;
 }
 
+.gallery-container .statusMsg {
+  min-height: 30px;
+}
+
 .section {
   margin: 0 auto;
   flex-basis: auto;

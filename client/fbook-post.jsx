@@ -36,7 +36,7 @@ class FacebookPost extends React.Component {
 
   shareCollageToFacebook() {
     console.log('shareCollageToFacebook Called');
-    this.setState({ hasPosted: 'Saving...' });
+    this.setState({ statusMsg: 'Saving...' });
 
     FB.api(
       'me/photos',
@@ -51,7 +51,7 @@ class FacebookPost extends React.Component {
         console.log('FacebookPost shareCollageToFacebook', response);
         if (response.id) {
           console.log('FacebookPost shareCollageToFacebook Success');
-          this.setState({ hasPosted: true });
+          this.setState({ statusMsg: 'Shared to timeline!' });
         }
       }.bind(this)
     );
@@ -67,7 +67,7 @@ class FacebookPost extends React.Component {
         <div className="gallery-container">
           <img src={this.state.photoUrl} />
           <button type="button" onClick={this.shareCollageToFacebook.bind(this)}>Share on Facebook</button>
-          <p class="statusMsg">{this.state.statusMsg}</p>
+          <p className="statusMsg">{this.state.statusMsg}</p>
         </div>
       </div>
     )
