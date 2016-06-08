@@ -152,8 +152,13 @@ module.exports.dashboard = {
               }) (0);
             });
           })
-      }
+      },
 
 		// console.log('query is an object as: ', );
 		// res.send('success');
+
+    delete: function(req, res) {
+      var arcId = req.body.arcId;
+      console.log(arcId);
+    }
 }; 
