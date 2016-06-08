@@ -55,7 +55,6 @@ class FacebookPost extends React.Component {
         }
       }.bind(this)
     );
-
   }
 
   render() {
