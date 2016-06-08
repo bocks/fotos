@@ -18,18 +18,23 @@ class Form extends React.Component {
   submitHandler (startDate, endDate, options) {
     console.log(startDate, endDate, 'in submit handler');
     FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate, function (response) {
-      console.log(response);
+      console.log('submitHandler response', response);
       var data = {
-              id: sessionStorage.getItem('fbId').fbId,
-              photos: response
-            };
+        id: sessionStorage.getItem('fbId'),
+        photos: response
+      };
+      console.log('submitHandler data', data);
+
       $.post({
         url: '/create',
         data: JSON.stringify(data),
         contentType: "application/json",
         success: function() {
-          console.log('success');
+          console.log('SUCCESS in submitHandler');
           hashHistory.push('dashboard');
+        },
+        error: function() {
+          console.log('ERROR in submitHandler');
         }
       });
     });

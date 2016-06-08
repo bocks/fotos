@@ -16,7 +16,6 @@ render((
     <Route path='/' component={Login}/>
     <Route path='/login' component={Login}/>
     <Route component={Main}>
-      <IndexRoute component={Main}/>
       <Route path='create' component={Form}/>
       <Route path='dashboard' component={Feed}/>
     </Route>
