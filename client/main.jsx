@@ -25,21 +25,20 @@ class Main extends React.Component {
     })
   }
 
-  render () {
-    console.log('rendering main.jsx');
-    return (
-      <div>
-        <header>
-          <Nav />
-        </header>
+    render () {
+      console.log('rendering main.jsx');
+      return (
+        <div>
+          <header>
+            <Nav />
+          </header>
 
+          {this.props.children}
+          <p>Hello world!</p>
 
-        {this.props.children}
-
-
-      </div>
-    );
-  }
+        </div>
+      );
+    }
 };
 
 export default Main;

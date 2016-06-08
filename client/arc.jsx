@@ -49,6 +49,9 @@ class Arc extends React.Component {
 
 
   renderGallery () {
+    console.log('in renderGallery:');
+    // photoArc = the set of images in the story
+    console.log('photoArc:', this.props.photoArc);
     if (!this.props.photoArc) return;
     const gallery = this.props.photoArc.map((obj, i) => {
       return (
