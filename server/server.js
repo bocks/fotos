@@ -37,6 +37,8 @@ app.post('/create', requestHandler.create.post);
 
 app.get('/dashboard', requestHandler.dashboard.get); 
 
+app.delete('/remove', requestHandler.dashboard.delete);
+
 app.listen(port, function () {
   console.log('Listening on port:', port, '!');
 });

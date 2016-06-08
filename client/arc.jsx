@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Lightbox from 'react-images';
+import $ from 'jquery';
 
 
 class Arc extends React.Component {
@@ -21,8 +22,21 @@ class Arc extends React.Component {
   
   removeGallery () {
     // ajax call to database
-    // if this.props.photoArc[0] then make ajax request with data this.props.photoArc[0].arcId
-    console.log(this.props.photoArc[0]);
+    // if this.props.photoArc[0]
+    if (this.props.photoArc[0]) {
+      console.log(this.props.photoArc[0].arcId);
+      // then make ajax request with data this.props.photoArc[0].arcId
+      $.ajax({
+        method: "DELETE",
+        url: "/remove",
+        data: {arcId: this.props.photoArc[0].arcId}
+      })
+        .done(function(res) {
+          console.log("Response from delete request ======>", res);
+        });
+    } else {
+      console.log(this.props.photoArc[0]);
+    }
   }
 
   openLightbox (index, event) {

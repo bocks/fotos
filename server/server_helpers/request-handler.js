@@ -152,8 +152,21 @@ module.exports.dashboard = {
               }) (0);
             });
           })
-      }
+      },
 
 		// console.log('query is an object as: ', );
 		// res.send('success');
+
+    delete: function(req, res) {
+      var arcId = req.body.arcId;
+      console.log(arcId);
+      // Arc.forge({id: arcId})
+      //   .fetch()
+      //   .then(function(arc) {
+      //     arc.destroy()
+      //     .then(function() {
+      //       console.log('Delete complete');
+      //     })
+      //   })
+    }
 }; 
