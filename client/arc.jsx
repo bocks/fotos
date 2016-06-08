@@ -16,6 +16,12 @@ class Arc extends React.Component {
     this.gotoPrevious = this.gotoPrevious.bind(this);
     this.handleClickImage = this.handleClickImage.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
+    this.removeGallery = this.removeGallery.bind(this);
+  }
+  
+  removeGallery () {
+    // ajax call to database
+    console.log('remove gallery');
   }
 
   openLightbox (index, event) {
@@ -74,6 +80,7 @@ class Arc extends React.Component {
     return (
       <div className="section" style={styles.gallery}>
         {gallery}
+        <button onClick={this.removeGallery}>Remove</button>
       </div>
     );
   }
