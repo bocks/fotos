@@ -15,10 +15,11 @@ render((
 	<Router history={hashHistory}>
     <Route path='/' component={Login}/>
     <Route path='/login' component={Login}/>
-    <IndexRoute component={Main}>
+    <Route component={Main}>
+      <IndexRoute component={Main}/>
       <Route path='create' component={Form}/>
       <Route path='dashboard' component={Feed}/>
-    </IndexRoute>
+    </Route>
   </Router>
   ), document.getElementsByClassName('mounting')[0]);
 
