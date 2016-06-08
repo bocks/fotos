@@ -22,6 +22,7 @@ coverage
 build/
 dist/
 public/bundle.js
+public/bundle.js.map
 
 # git DS STORE
 .DS_STORE
