@@ -25,24 +25,26 @@ class FacebookPost extends React.Component {
   }
 
   shareCollageToFacebook () {
-    console.log({
-      message: 'Example Photo Share',
-      status: 'success',
-      // access_token: sessionStorage.getItem('access_token'),
-      access_token: 'EAAQNY7TGjeYBAOSpGOK3ZBTP0ZBI3lSkpwZB6EyqeJA9KkTsZApZADlIoQtQiqLB5EBpEDNAAnlExo0i3ymJBdzZAsWcOHCnZBvWttqt2UYAW5ZCfXn50rddIXo2AQDmqydbfP4oNeBQAJcyQydGH4uFfKSjqrO0dK2y18vTvEHes9X9cxRwDDl7',
-      url: 'http://i.imgur.com/ibLnsac.jpg'
-    });
+    // FB.login(function(response) {
+    //   console.log('shareCollageToFacebook FB.login', response);
 
-    FB.api('me/photos', 'post',
-    {
-      message: 'Example Photo Share',
-      status: 'success',
-      access_token: sessionStorage.getItem('access_token'),
-      url: 'http://localhost:4000/bowtie-cat.jpg'
-    },
-    function(response) {
-      console.log('FacebookPost shareCollageToFacebook', response);
-    });
+    console.log('shareCollageToFacebook Called');
+
+    FB.api(
+      'me/photos',
+      'post',
+      {
+        message: 'Example Photo Share',
+        status: 'success',
+        url: 'http://i.imgur.com/ibLnsac.jpg',
+        access_token: sessionStorage.getItem('access_token'),
+      },
+      function(response) {
+        console.log('FacebookPost shareCollageToFacebook', response);
+      }
+    );
+  // }, {scope: 'public_profile, user_photos, publish_actions'});
+
   }
 
   render () {
