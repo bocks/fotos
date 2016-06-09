@@ -192,6 +192,43 @@ module.exports.dashboard = {
         console.log('received request to UPDATE');
         console.log(req.body);
 
+        var arcId = req.body.arcId;
+
+        var imgUrl = minimizeAndRandArr(req.body.photos.data, limit);
+
+            // Arc.forge({id: arcId})
+            //   .fetch()
+            //   .then( function(arc) {
+
+            //     arc.save({//dates}, {patch: true});
+            //   })
+
+        Images.reset()
+          .query({where: {arc_id: arcId}})
+          .fetch()
+          .then(function (images) {
+
+              for (var imgId = 0; imgId < imgUrl.length; imgId++) {
+                var imgSizeArr = imgUrl[imgId].images;
+                  var img = imgSizeArr[0];
+
+
+                  var image = {
+                    height: img.height,
+                    width: img.width,
+                    url: img.source
+                  };
+
+                  new Image({id: images.models[imgId].id})
+                    .save(image, {patch: true})
+                    .then(function(image) {
+                      console.log('imgs has been updated => ', image);
+                    });
+
+                }
+              });
+        res.send('success');
+
         // TODO: find rows in database by arcId
         // update images and date
 
