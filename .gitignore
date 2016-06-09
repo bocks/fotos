@@ -35,3 +35,6 @@ bower_components/
 
 # client config file
 client/config.jsx
+
+# image store
+public/collages/*.jpeg
