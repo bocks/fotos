@@ -9,9 +9,15 @@ class Arc extends React.Component {
     super(props);
 
     this.state = {
-      someState: true
+      lightboxIsOpen: false,
+      currentImage: 0,
     };
-
+    this.closeLightbox = this.closeLightbox.bind(this);
+    this.gotoNext = this.gotoNext.bind(this);
+    this.gotoPrevious = this.gotoPrevious.bind(this);
+    this.handleClickImage = this.handleClickImage.bind(this);
+    this.openLightbox = this.openLightbox.bind(this);
+    this.removeGallery = this.removeGallery.bind(this);
   }
 
   removeGallery () {

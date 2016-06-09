@@ -6,8 +6,6 @@ class Edit extends React.Component {
     super(props);
 
     this.state = {
-      lightboxIsOpen: false,
-      currentImage: 0,
       visible: 'none'
     };
   }
