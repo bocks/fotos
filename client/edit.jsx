@@ -58,10 +58,8 @@ class Edit extends React.Component {
 
   render() {
     return (
-          <div>
-            <p>
-              <button onClick={this.swapVisibility.bind(this)}>Edit</button>
-            </p>
+          <div className='edit-panel'>
+            <button onClick={this.swapVisibility.bind(this)}>Edit</button>
             <div className='inputForm' style={{ 'display': this.state.visible }}>
               <form>
                 <div>
