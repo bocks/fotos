@@ -32,7 +32,7 @@ class Main extends React.Component {
      }(document, 'script', 'facebook-jssdk'));
   }
 
-  submitHandler (startDate, endDate, endpoint, arcId) {
+  submitHandler (startDate, endDate, endpoint, arcId, updateDOM) {
 
       FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate+'&access_token='+sessionStorage.getItem('access_token'), function (response) {
         // console.log('submitHandler response', response);
@@ -57,6 +57,9 @@ class Main extends React.Component {
             contentType: 'application/json',
             success: function() {
               console.log('SUCCESS in submitHandler');
+              if (updateDOM) {
+                updateDOM();
+              }
               hashHistory.push('dashboard');
             },
             error: function() {

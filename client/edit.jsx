@@ -25,6 +25,10 @@ class Edit extends React.Component {
     this.setState({ visible: val });
   }
 
+  updateDOM () {
+    this.props.getData();
+  }
+
   handleSubmit (e) {
     e.preventDefault();
     console.log('start is', this.state.startDate);
@@ -34,7 +38,7 @@ class Edit extends React.Component {
     console.log(this);
     console.log(this.props);
     if ( this.state.startDate <= this.state.endDate ) {
-      this.props.submitHandler(this.state.startDate, this.state.endDate, '/update', this.props.photoArc[0].arcId);
+      this.props.submitHandler(this.state.startDate, this.state.endDate, '/update', this.props.photoArc[0].arcId, this.updateDOM.bind(this));
     }
 
   }
