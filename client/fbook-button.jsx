@@ -1,3 +1,4 @@
+import Config from './config';
 import React from 'react';
 import $ from 'jquery';
 import { hashHistory } from 'react-router';
@@ -13,6 +14,26 @@ class FacebookButton extends React.Component {
     }
 
     this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentDidMount () {
+    var self = this;
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : Config.FACEBOOK_APP_ID,
+        xfbml      : true,
+        version    : 'v2.6'
+      });
+      console.log('initializing fbook', window.FB);
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
   }
 
   checkLoginState () {
