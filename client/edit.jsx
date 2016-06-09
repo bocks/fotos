@@ -62,10 +62,8 @@ class Edit extends React.Component {
             <div className='inputForm' style={{ 'display': this.state.visible }}>
               <form>
                 <div>
-                  <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove
-                  </button>
-                  <button type="submit" onClick={this.handleSubmit.bind(this)}>Change Dates
-                  </button>
+                  <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove</button>
+                  <button type="submit" onClick={this.handleSubmit.bind(this)}>Change Dates</button>
                 </div>
                 <p className='inputs'>
                  <label>Start Date: </label>
