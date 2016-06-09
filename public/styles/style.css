@@ -1,6 +1,6 @@
 .navbar{
   height: 70px;
-  font-family: 'Raleway', sans-serif; 
+  font-family: 'Raleway', sans-serif;
 }
 
 .links, .logout {
@@ -22,18 +22,18 @@
   left: 200px;
   justify-content: flex-start;
   align-items: center;
-  width: 70%; 
+  width: 70%;
   text-align: center;
   padding: 10px;
   border-radius: 5px;
   border-color: lightblue;
-  font-family: 'Raleway', sans-serif; 
+  font-family: 'Raleway', sans-serif;
 }
 
 
 
 .active {
-  background-color:rgba(10,10,10,0.2); 
+  background-color:rgba(10,10,10,0.2);
 }
 
 .signIn {
@@ -70,11 +70,11 @@
   margin-bottom: 100px;
   text-align: center;
   color: white;
-  font-family: 'Raleway', sans-serif; 
+  font-family: 'Raleway', sans-serif;
 }
 
 .login-title > h1{
-  font-family: 'Pacifico', cursive; 
+  font-family: 'Pacifico', cursive;
 }
 .login-button {
   text-align: center;
@@ -82,8 +82,8 @@
 }
 
 
-#background { 
-    background: url(../scrapbook.jpg) no-repeat center center fixed; 
+#background {
+    background: url(../scrapbook.jpg) no-repeat center center fixed;
     -o-background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -92,18 +92,26 @@
 }
 
 .gallery-container {
-  height: 600px;
-  width: 70%; 
+  min-height: 300px;
+  width: 70%;
   background: white;
   position: relative;
   top: 150px;
   left: 200px;
   /*display: flex;*/
-  overflow:auto;
+  /*overflow:auto;*/
   /*justify-content: flex-start;*/
   /*align-items: center;*/
   /*flex-direction: column;*/
-  border-radius: 3px; 
+  border-radius: 3px;
+
+  text-align: center;
+}
+
+.gallery-container img {
+  max-width: 90%;
+  margin: 30px auto;
+  border-radius: 3px;
 }
 
 .section {
@@ -122,18 +130,18 @@
 
 .section a, .section img {
 /*  border: 5px solid blue;
-*/  
+*/
 }
 
 .inputForm {
-  width: 70%; 
+  width: 70%;
   position: relative;
   top: 80px;
   left: 200px;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: stretch;
-  background: white; 
+  background: white;
   height: 250px;
   width: 70%;
   border-radius: 3px;
@@ -142,7 +150,7 @@
 
 form > p {
   flex-grow: 1;
-  min-width: 300px; 
+  min-width: 300px;
   margin: 20px;
 }
 
@@ -152,11 +160,11 @@ form > p {
   font-size: 17px;
   flex-basis: 100px;
   width: 100px;
-  border-radius: 3px; 
+  border-radius: 3px;
 }
 
 .inputs > input {
-  flex-grow: 2; 
+  flex-grow: 2;
   flex-basis: 300px;
   width: 300px;
   margin: auto;

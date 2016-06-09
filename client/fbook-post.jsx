@@ -7,7 +7,9 @@ class FacebookPost extends React.Component {
     super(props);
 
     this.state = {
-      hasPosted: false
+      hasPosted: false,
+      statusMsg: '',
+      photoUrl: 'http://i.imgur.com/ibLnsac.jpg',
     }
   }
 
@@ -61,9 +63,12 @@ class FacebookPost extends React.Component {
 
     return (
       <div>
-        <h1>FacebookPost Render</h1>
-        <button type="button" onClick={this.shareCollageToFacebook.bind(this)}>Share Collage</button>
-        <p>{this.state.hasPosted.toString()}</p>
+        <h2 className="page-title">Share Your Collage</h2>
+        <div className="gallery-container">
+          <img src={this.state.photoUrl} />
+          <button type="button" onClick={this.shareCollageToFacebook.bind(this)}>Share on Facebook</button>
+          <p class="statusMsg">{this.state.statusMsg}</p>
+        </div>
       </div>
     )
   }
