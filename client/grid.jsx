@@ -6,22 +6,50 @@ class Grid extends React.Component {
   
   constructor(props) {
     super(props);
+    console.log('props', props);
     this.state = {images: [
       {
-        url: 'http://i.imgur.com/Yal1xei.png'
+        url: props.photoArc[0].src
       },{
-        url: 'http://90kids.com/wp-content/uploads/2014/04/welcome-to-the-internet-90s.jpg'
+        url: props.photoArc[1].src
       },{
-        url: 'http://memesvault.com/wp-content/uploads/Welcome-To-The-Internet-Meme-06.jpg'
+        url: props.photoArc[2].src
       },{
-        url: 'http://memesvault.com/wp-content/uploads/Welcome-To-The-Internet-Meme-17.jpg'
+        url: props.photoArc[3].src
       }
     ]};
   };
   
+  storeCollage (id, img) {
+    $.post({
+      url: '/collage',
+      data: {
+        arc_id: id,
+        collage: img
+      },
+      success: function() {
+        console.log('collage stored in db');
+      }
+    });
+  };
+  
+  exportImage () {
+    html2canvas(document.getElementsByClassName('photoGrid'), {
+      onrendered: function(canvas) {
+        var theCanvas = canvas;
+        theCanvas.style.width = "400px";
+        var img = theCanvas.toDataURL("image/png"); 
+        this.storeCollage(id, img);     
+      }
+    });
+  };
+  
   render () {
+    var style = {
+      width: "400px"
+    }
     return (
-      <div className="photoGrid">
+      <div style={style} className="photoGrid">
         <ReactRpg imagesArray={this.state.images} columns={[2, 2, 2]} />
       </div>  
     )

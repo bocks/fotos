@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Arc from './arc';
 import $ from 'jquery';
 import Edit from './edit';
+import Grid from './grid';
 
 
 // expecting to be passed an array of urls in props
@@ -57,6 +58,7 @@ class Feed extends React.Component {
             <div>
               <Arc key={this.state.count++} photoArc={arc} />
               <Edit photoArc={arc} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
+              <Grid photoArc={arc} />
             </div>
            );}
          )}
