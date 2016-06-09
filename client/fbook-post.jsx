@@ -69,6 +69,7 @@ class FacebookPost extends React.Component {
           <img src={this.state.photoUrl} />
           <button type="button" onClick={this.shareCollageToFacebook.bind(this)}>Share on Facebook</button>
           <p className="statusMsg">{this.state.statusMsg}</p>
+          <div className="statusMsg">{this.state.statusMsg}</div>
         </div>
       </div>
     )
