@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Lightbox from 'react-images';
-import $ from 'jquery';
+// import $ from 'jquery';
 
 
 class Arc extends React.Component {
@@ -17,25 +17,6 @@ class Arc extends React.Component {
     this.gotoPrevious = this.gotoPrevious.bind(this);
     this.handleClickImage = this.handleClickImage.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
-    this.removeGallery = this.removeGallery.bind(this);
-  }
-
-  removeGallery () {
-    // ajax call to database
-    if (this.props.photoArc[0]) {
-      var context = this;
-      // then make ajax request with data this.props.photoArc[0].arcId
-      $.ajax({
-        method: 'DELETE',
-        url: '/remove',
-        data: {arcId: this.props.photoArc[0].arcId}
-      })
-      .done(function(res) {
-        context.props.getData();
-      });
-    } else {
-      console.log(this.props.photoArc[0]);
-    }
   }
 
   openLightbox (index, event) {
@@ -94,8 +75,6 @@ class Arc extends React.Component {
     return (
       <div className="section" style={styles.gallery}>
         {gallery}
-
-
       </div>
     );
   }
@@ -113,9 +92,6 @@ class Arc extends React.Component {
             onClickImage={this.handleClickImage}
             onClose={this.closeLightbox}
           />
-          <div>
-            <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove</button>
-          </div>
         </div>
     );
   }
