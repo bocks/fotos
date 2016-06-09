@@ -32,8 +32,6 @@ class Arc extends React.Component {
         data: {arcId: this.props.photoArc[0].arcId}
       })
       .done(function(res) {
-        console.log('Response from delete request ======>', res);
-        console.log('context props =========> ',context.props);
         context.props.getData();
       });
     } else {

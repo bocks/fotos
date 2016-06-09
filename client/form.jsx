@@ -70,7 +70,10 @@ class Form extends React.Component {
 		console.log("start is", this.state.startDate);
 		console.log("end is", this.state.endDate);
 
-    this.submitHandler(this.state.startDate, this.state.endDate);
+    // Make sure the startDate is before or the same as the endDate
+    if ( this.state.startDate <= this.state.endDate ) {
+      this.submitHandler(this.state.startDate, this.state.endDate); 
+    }
 
 	}
 
