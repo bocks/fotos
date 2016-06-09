@@ -1,8 +1,6 @@
 import Config from './config';
-
 import React from 'react';
-import $ from 'jquery';
-import { hashHistory } from 'react-router';
+
 
 class Form extends React.Component {
 	constructor(props) {
@@ -14,7 +12,6 @@ class Form extends React.Component {
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.dropdownSelect = this.dropdownSelect.bind(this);
-    this.submitHandler = this.submitHandler.bind(this);
 	}
 
   componentDidMount () {
@@ -37,44 +34,14 @@ class Form extends React.Component {
      }(document, 'script', 'facebook-jssdk'));
   }
 
-  submitHandler (startDate, endDate, options) {
-    console.log(startDate, endDate, 'in submit handler');
-
-    // FB.getLoginStatus(function(response) {
-      FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate+'&access_token='+sessionStorage.getItem('access_token'), function (response) {
-        console.log('submitHandler response', response);
-        var data = {
-          id: sessionStorage.getItem('fbId'),
-          photos: response
-        };
-        console.log('submitHandler data', data);
-        // console.log('No picture ==================>', data.photos.data.length);
-        if ( data.photos.data.length > 0 ) {
-          $.post({
-            url: '/create',
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            success: function() {
-              console.log('SUCCESS in submitHandler');
-              hashHistory.push('dashboard');
-            },
-            error: function() {
-              console.log('ERROR in submitHandler');
-            }
-          });
-        }
-      });
-    // });
-  }
-
 	handleSubmit (e) {
 		e.preventDefault();
-		console.log("start is", this.state.startDate);
-		console.log("end is", this.state.endDate);
+		// console.log("start is", this.state.startDate);
+		// console.log("end is", this.state.endDate);
 
     // Make sure the startDate is before or the same as the endDate
     if ( this.state.startDate <= this.state.endDate ) {
-      this.submitHandler(this.state.startDate, this.state.endDate);
+      this.props.submitHandler(this.state.startDate, this.state.endDate, '/create');
     }
 
 	}

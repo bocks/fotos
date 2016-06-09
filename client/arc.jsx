@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Lightbox from 'react-images';
-// import $ from 'jquery';
-
 
 class Arc extends React.Component {
   constructor(props) {

@@ -2,7 +2,8 @@ import React from 'react';
 import Nav from './nav';
 import { Button } from 'react-bootstrap';
 import Feed from './feed';
-
+import $ from 'jquery';
+import { hashHistory } from 'react-router';
 
 
 class Main extends React.Component {
@@ -11,30 +12,49 @@ class Main extends React.Component {
     this.submitHandler = this.submitHandler.bind(this);
   }
 
-  submitHandler (startDate, endDate, options) {
-    $.post({
-      url: '/create',
-      data: {
-        startDate: startDate,
-        endDate: endDate,
-        options: options
-      },
-      success: function() {
-        console.log('success');
-      }
-    })
+  submitHandler (startDate, endDate, endpoint, options) {
+
+      FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate+'&access_token='+sessionStorage.getItem('access_token'), function (response) {
+        // console.log('submitHandler response', response);
+        var data = {
+          id: sessionStorage.getItem('fbId'),
+          photos: response
+        };
+        // console.log('submitHandler data', data);
+        // console.log('No picture ==================>', data.photos.data.length);
+        if ( data.photos.data.length > 0 ) {
+          $.post({
+            url: endpoint,
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function() {
+              console.log('SUCCESS in submitHandler');
+              hashHistory.push('dashboard');
+            },
+            error: function() {
+              console.log('ERROR in submitHandler');
+            }
+          });
+        }
+      });
   }
 
     render () {
-      console.log('rendering main.jsx');
+
+      // pass submitHandler to form and all child components
+      const childrenWithProps = React.Children.map(this.props.children,
+         (child) => React.cloneElement(child, {
+           submitHandler: this.submitHandler
+         })
+        );
+
       return (
         <div>
           <header>
             <Nav />
           </header>
 
-          {this.props.children}
-          <p>Hello world!</p>
+          {childrenWithProps}
 
         </div>
       );
