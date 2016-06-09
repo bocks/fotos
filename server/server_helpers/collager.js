@@ -4,7 +4,6 @@ var fs = require('fs');
 module.exports = {
 
   collagify: function (arr, arcId) {
-    console.log('collagifying');
     var options = {
       sources: arr,
       width: 2,
