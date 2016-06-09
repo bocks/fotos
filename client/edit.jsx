@@ -12,6 +12,7 @@ class Edit extends React.Component {
       endDate: null,
       options: null
     };
+    this.swapVisibility = this.swapVisibility.bind(this);
     this.removeGallery = this.removeGallery.bind(this);
     this.dropdownSelect = this.dropdownSelect.bind(this);
   }
@@ -29,17 +30,16 @@ class Edit extends React.Component {
     e.preventDefault();
     console.log('start is', this.state.startDate);
     console.log('end is', this.state.endDate);
-
     // Make sure the startDate is before or the same as the endDate
-    console.log(this);
-    console.log(this.props);
     if ( this.state.startDate <= this.state.endDate ) {
       this.props.submitHandler(this.state.startDate, this.state.endDate, '/update', this.props.photoArc[0].arcId, this.props.getData.bind(this));
     }
-
   }
 
   removeGallery () {
+    // close edit panel before removing storyArc
+    this.swapVisibility().bind(this);
+
     // ajax call to database
     if (this.props.photoArc[0]) {
       var context = this;
@@ -82,7 +82,6 @@ class Edit extends React.Component {
                   <option value="filter2"></option>
                   <option value="filter3">Photos in other countries</option>
                 </select> */}
-
               </form>
             </div>
           </div>

@@ -28,7 +28,6 @@ module.exports.signin = {
   },
 
   post: function (req, res) {
-    // console.log('post request', req.body);
     Users.reset()
       .query({where: {fbId: req.body.userId}})
       .fetch()
@@ -44,7 +43,6 @@ module.exports.signin = {
           });
         }
         res.writeHead(201);
-        // res.redirect('/dashboard'); // How do you redirect to React path?
         res.end();
       });
   }
@@ -129,6 +127,7 @@ module.exports.dashboard = {
 		var url_parts = url.parse(req.url, true);
 		var userId = url_parts.query.user_id;
     var results = [];
+
     User.forge({fbId: userId})
       .fetch()
       .then(function (userMatched) {
@@ -136,40 +135,36 @@ module.exports.dashboard = {
           .query({where: {user_id: userMatched.id}})
           .fetch()
           .then(function (arcMatched) {
-            // make array of matching arc id
-            // Images.reset();
-            // for (var arcNo = 0; arcNo < arcMatched.length; arcNo++) {
-              // results.push([]);
               (function next(index) {
-                  if (index === arcMatched.length) {
-                  	res.json(results);
-                  	return;
-                  }
-                  Images.reset()
-                    .query(function (qb) {
-                      qb.where('arc_id', '=', arcMatched.models[index].id);
-                    })
-                    .fetch()
-                    .then(function (imageMatched) {
-											// console.log('for index...', index)
-											// console.log('full imageMatched is...', imageMatched)
-                      // loop through all images in each arc
-                      result = [];
-                      for (var img = 0; img < imageMatched.length; img++) {
-                        // console.log('All images in this arc =>', imageMatched.models[img].attributes.url, 'here is n =>', n);
+                if (index === arcMatched.length) {
+                	res.json(results);
+                	return;
+                }
+                Images.reset()
+                  .query(function (qb) {
+                    qb.where('arc_id', '=', arcMatched.models[index].id);
+                  })
+                  .fetch()
+                  .then(function (imageMatched) {
 
-                        result.unshift({thumbnail: imageMatched.models[img].attributes.url, src: imageMatched.models[img].attributes.url, arcId: imageMatched.models[img].attributes.arc_id});
-                      }
-                      results.push(result);
-                      next(index + 1);
-                    })
+                    // loop through all images in each arc
+                    result = [];
+                    for (var img = 0; img < imageMatched.length; img++) {
+                      result.unshift({
+                        thumbnail: imageMatched.models[img].attributes.url,
+                        src: imageMatched.models[img].attributes.url,
+                        arcId: imageMatched.models[img].attributes.arc_id,
+                        startDate: arcMatched.models[index].attributes.query_start_date,
+                        endDate: arcMatched.models[index].attributes.query_end_date
+                      });
+                    }
+                    results.push(result);
+                    next(index + 1);
+                  });
               }) (0);
             });
           })
-      },
-
-		// console.log('query is an object as: ', );
-		// res.send('success');
+    },
 
     delete: function(req, res) {
       var arcId = req.body.arcId;
