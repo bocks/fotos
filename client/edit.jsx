@@ -37,9 +37,6 @@ class Edit extends React.Component {
   }
 
   removeGallery () {
-    // close edit panel before removing storyArc
-    this.swapVisibility().bind(this);
-
     // ajax call to database
     if (this.props.photoArc[0]) {
       var context = this;
@@ -50,6 +47,8 @@ class Edit extends React.Component {
       })
       .done(function(res) {
         context.props.getData();
+        // close edit panel before removing storyArc
+        context.swapVisibility();
       });
     } else {
       console.log(this.props.photoArc[0]);
