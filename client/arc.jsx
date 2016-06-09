@@ -9,17 +9,10 @@ class Arc extends React.Component {
     super(props);
 
     this.state = {
-      lightboxIsOpen: false,
-      currentImage: 0,
+      someState: true
     };
-    this.closeLightbox = this.closeLightbox.bind(this);
-    this.gotoNext = this.gotoNext.bind(this);
-    this.gotoPrevious = this.gotoPrevious.bind(this);
-    this.handleClickImage = this.handleClickImage.bind(this);
-    this.openLightbox = this.openLightbox.bind(this);
-    this.removeGallery = this.removeGallery.bind(this);
+
   }
-  
 
   removeGallery () {
     // ajax call to database
@@ -95,16 +88,16 @@ class Arc extends React.Component {
     return (
       <div className="section" style={styles.gallery}>
         {gallery}
-        <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove</button>
+
+
       </div>
     );
   }
 
     render () {
-      console.log('rendering arc.jsx');
       return (
         <div style={styles.container}>
-            {this.renderGallery()}
+          {this.renderGallery()}
           <Lightbox
             currentImage={this.state.currentImage}
             images={this.props.photoArc}
@@ -114,6 +107,9 @@ class Arc extends React.Component {
             onClickImage={this.handleClickImage}
             onClose={this.closeLightbox}
           />
+          <div>
+            <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove</button>
+          </div>
         </div>
     );
   }

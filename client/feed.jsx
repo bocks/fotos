@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Arc from './arc';
 import $ from 'jquery';
+import Edit from './edit';
 
 
 // expecting to be passed an array of urls in props
@@ -23,7 +24,7 @@ class Feed extends React.Component {
 
   getData() {
 
-    var self = this;
+    // var self = this;
     $.get('/dashboard', {user_id: sessionStorage.getItem('fbId')}, function(data) {
       console.log("Data from db =>", data);
 
@@ -47,14 +48,16 @@ class Feed extends React.Component {
   }
 
   render() {
-    console.log('rendering feed.jsx');
     return (
       <div>
         <h2 className="page-title">Your Stories</h2>
         <div className="gallery-container">
          {this.state.arcs.map((arc) => {
            return (
-           <Arc key={this.state.count++} getData={this.getData.bind(this)} photoArc={arc} />
+            <div>
+              <Arc key={this.state.count++} getData={this.getData.bind(this)} photoArc={arc} />
+              <Edit />
+            </div>
            );}
          )}
         </div>
