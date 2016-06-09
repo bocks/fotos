@@ -73,39 +73,43 @@ module.exports.create = {
 
   post: function (req, res) {
     // store obj from fb api calls into db
-    // console.log('post request from client', req.body.photos.data.length);
+    var startDate = req.body.startDate;
+    var endDate = req.body.endDate;
     var imgUrl = minimizeAndRandArr(req.body.photos.data, limit);
-      // user has already been created
-        User.forge({fbId: req.body.id})
-          .fetch()
-          .then(function (userMatched) {
-            // make new arc
-            var arc = new Arc({
-              name: Date()
+
+    // fetch the current user to grab id for foreign key
+    User.forge({fbId: req.body.id})
+      .fetch()
+      .then(function (userMatched) {
+        // make new arc
+        var arc = new Arc({
+          name: Date()
+        });
+        return arc.save({
+          user_id: userMatched.id,
+          query_start_date: startDate,
+          query_end_date: endDate
+        });
+      })
+      .then(function (newArc) {
+        console.log('Images in arc =>', imgUrl);
+
+      // store img into new arc
+        for (var imgId = 0; imgId < imgUrl.length; imgId++) {
+          var imgSizeArr = imgUrl[imgId].images;
+          // for (var imgSize = 0; imgSize < imgSizeArr.length; imgSize++) {
+            // var img = imgSizeArr[imgSize];
+            var img = imgSizeArr[0];
+            console.log("Img instance", img);
+            var image = new Image({
+              height: img.height,
+              width: img.width,
+              url: img.source
             });
-            return arc.save({user_id: userMatched.id});
-          })
-          .then(function (newArc) {
-            console.log('Images in arc =>', imgUrl);
 
-          // store img into new arc
-            for (var imgId = 0; imgId < imgUrl.length; imgId++) {
-              var imgSizeArr = imgUrl[imgId].images;
-              // for (var imgSize = 0; imgSize < imgSizeArr.length; imgSize++) {
-                // var img = imgSizeArr[imgSize];
-                var img = imgSizeArr[0];
-                console.log("Img instance", img);
-                var image = new Image({
-                  height: img.height,
-                  width: img.width,
-                  url: img.source
-                });
-
-                image.save({arc_id: newArc.id});
-                // console.log("A new img has been added => ", image);
-              // }
-            }
-          });
+            image.save({arc_id: newArc.id});
+        }
+      });
     res.send('success');
   }
 }
@@ -193,15 +197,22 @@ module.exports.dashboard = {
         console.log(req.body);
 
         var arcId = req.body.arcId;
+        var startDate = req.body.startDate;
+        var endDate = req.body.endDate;
 
         var imgUrl = minimizeAndRandArr(req.body.photos.data, limit);
 
-            // Arc.forge({id: arcId})
-            //   .fetch()
-            //   .then( function(arc) {
+        Arc.forge({id: arcId})
+          .fetch()
+          .then( function(arc) {
 
-            //     arc.save({//dates}, {patch: true});
-            //   })
+            var dates = {
+              query_start_date: startDate,
+              query_end_date: endDate
+            };
+
+            arc.save(dates, {patch: true});
+          })
 
         Images.reset()
           .query({where: {arc_id: arcId}})
