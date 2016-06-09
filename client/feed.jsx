@@ -54,7 +54,7 @@ class Feed extends React.Component {
         <div className="gallery-container">
          {this.state.arcs.map((arc) => {
            return (
-           <Arc key={this.state.count++} photoArc={arc} />
+           <Arc key={this.state.count++} getData={this.getData.bind(this)} photoArc={arc} />
            );}
          )}
         </div>

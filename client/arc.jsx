@@ -19,10 +19,12 @@ class Arc extends React.Component {
     this.openLightbox = this.openLightbox.bind(this);
     this.removeGallery = this.removeGallery.bind(this);
   }
+  
 
   removeGallery () {
     // ajax call to database
     if (this.props.photoArc[0]) {
+      var context = this;
       // then make ajax request with data this.props.photoArc[0].arcId
       $.ajax({
         method: 'DELETE',
@@ -31,6 +33,8 @@ class Arc extends React.Component {
       })
       .done(function(res) {
         console.log('Response from delete request ======>', res);
+        console.log('context props =========> ',context.props);
+        context.props.getData();
       });
     } else {
       console.log(this.props.photoArc[0]);
