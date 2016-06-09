@@ -32,7 +32,7 @@ class Main extends React.Component {
      }(document, 'script', 'facebook-jssdk'));
   }
 
-  submitHandler (startDate, endDate, endpoint, options) {
+  submitHandler (startDate, endDate, endpoint, arcId) {
 
       FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate+'&access_token='+sessionStorage.getItem('access_token'), function (response) {
         // console.log('submitHandler response', response);
@@ -40,6 +40,14 @@ class Main extends React.Component {
           id: sessionStorage.getItem('fbId'),
           photos: response
         };
+
+        // We need this when we update the database
+        if (arcId) {
+          data.arcId = arcId;
+        }
+
+        console.log('Data from submitHandler ===============>', data);
+
         // console.log('submitHandler data', data);
         // console.log('No picture ==================>', data.photos.data.length);
         if ( data.photos.data.length > 0 ) {

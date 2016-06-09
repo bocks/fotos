@@ -186,5 +186,14 @@ module.exports.dashboard = {
               });
             });
         });
-      }
+      },
+
+    post: function(req, res) {
+        console.log('received request to UPDATE');
+        console.log(req.body);
+
+        // TODO: find rows in database by arcId
+        // update images and date
+
+    }
 };
