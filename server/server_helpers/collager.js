@@ -16,7 +16,7 @@ module.exports = {
     createCollage(options)
       .then(function (canvas) {
         var src = canvas.jpegStream();
-        var dest = fs.createWriteStream("public/collages/collage-" + arcId + '.jpeg');
+        var dest = fs.createWriteStream('public/collages/collage-' + arcId + '.jpeg');
         src.pipe(dest);
       })
     ;
