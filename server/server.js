@@ -36,9 +36,7 @@ app.get('/create', requestHandler.create.get);
 app.post('/create', requestHandler.create.post);
 
 app.get('/dashboard', requestHandler.dashboard.get);
-app.post('/update', function() {
-  console.log('received request to UPDATE');
-});
+app.post('/update', requestHandler.dashboard.post);
 // patch?
 
 app.delete('/remove', requestHandler.dashboard.delete);

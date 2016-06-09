@@ -34,7 +34,7 @@ class Edit extends React.Component {
     console.log(this);
     console.log(this.props);
     if ( this.state.startDate <= this.state.endDate ) {
-      this.props.submitHandler(this.state.startDate, this.state.endDate, '/update');
+      this.props.submitHandler(this.state.startDate, this.state.endDate, '/update', this.props.photoArc[0].arcId);
     }
 
   }
