@@ -11,14 +11,16 @@ class Edit extends React.Component {
   }
 
   swapVisibility() {
-    this.setState({
-      visible: 'block'
-    });
+    var val = (this.state.visible === 'none') ? 'block' : 'none';
+    this.setState({ visible: val });
   }
 
   render() {
     return (
           <div>
+            <p>
+              <button onClick={this.swapVisibility.bind(this)}>Edit</button>
+            </p>
             <div className='inputForm' style={{ 'display': this.state.visible }}>
               <form>
                 <p className='inputs'>
@@ -38,9 +40,6 @@ class Edit extends React.Component {
 
               </form>
             </div>
-            <p>
-              <button onClick={this.swapVisibility.bind(this)}>See your photos</button>
-            </p>
           </div>
         );
   }
