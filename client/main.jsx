@@ -35,7 +35,7 @@ class Main extends React.Component {
   submitHandler (startDate, endDate, endpoint, arcId, updateDOM) {
 
       FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate+'&access_token='+sessionStorage.getItem('access_token'), function (response) {
-        // console.log('submitHandler response', response);
+        console.log('submitHandler response', response);
         var data = {
           id: sessionStorage.getItem('fbId'),
           photos: response

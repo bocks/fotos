@@ -12,6 +12,8 @@ var Arcs = require('../db/collections/arcs');
 var Image = require('../db/models/image.js');
 var Images = require('../db/collections/images.js');
 
+var Collage = require('./collager');
+
 var limit = 5;
 
 module.exports.main = {
@@ -77,6 +79,12 @@ module.exports.create = {
     var endDate = req.body.endDate;
     var imgUrl = minimizeAndRandArr(req.body.photos.data, limit);
 
+    var collageArray = [
+      imgUrl[0].images[0].source,
+      imgUrl[1].images[0].source,
+      imgUrl[2].images[0].source,
+      imgUrl[3].images[0].source
+    ];
     // fetch the current user to grab id for foreign key
     User.forge({fbId: req.body.id})
       .fetch()
@@ -93,6 +101,7 @@ module.exports.create = {
       })
       .then(function (newArc) {
         console.log('Images in arc =>', imgUrl);
+        Collage.collagify(collageArray, newArc.id);
 
       // store img into new arc
         for (var imgId = 0; imgId < imgUrl.length; imgId++) {
@@ -110,6 +119,7 @@ module.exports.create = {
             image.save({arc_id: newArc.id});
         }
       });
+
     res.send('success');
   }
 }
@@ -141,7 +151,7 @@ module.exports.dashboard = {
                     })
                     .fetch()
                     .then(function (imageMatched) {
-											console.log('for index...', index)
+											// console.log('for index...', index)
 											// console.log('full imageMatched is...', imageMatched)
                       // loop through all images in each arc
                       result = [];
