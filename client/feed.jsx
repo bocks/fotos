@@ -56,7 +56,7 @@ class Feed extends React.Component {
            return (
             <div>
               <Arc key={this.state.count++} getData={this.getData.bind(this)} photoArc={arc} />
-              <Edit />
+              <Edit photoArc={arc} />
             </div>
            );}
          )}
