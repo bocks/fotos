@@ -1,7 +1,7 @@
-// load up server and basic routes 
+// load up server and basic routes
 var express = require('express');
 var helpers = require('./server_helpers/middleware');
-var requestHandler = require('./server_helpers/request-handler'); 
+var requestHandler = require('./server_helpers/request-handler');
 var bodyParser = require('body-parser');
 
 var db = require('./db/config.js');
@@ -25,17 +25,21 @@ app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:500
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false })); // Fixes 404 errors for empty response body
 app.use(helpers.logger);
-app.use(express.static(__dirname + '/../public')); 
+app.use(express.static(__dirname + '/../public'));
 
 app.get('/', requestHandler.main.get);
 
-app.get('/signin', requestHandler.signin.get);  
+app.get('/signin', requestHandler.signin.get);
 app.post('/signin', requestHandler.signin.post);
 
 app.get('/create', requestHandler.create.get);
-app.post('/create', requestHandler.create.post); 
+app.post('/create', requestHandler.create.post);
 
-app.get('/dashboard', requestHandler.dashboard.get); 
+app.get('/dashboard', requestHandler.dashboard.get);
+app.post('/update', function() {
+  console.log('received request to UPDATE');
+});
+// patch?
 
 app.delete('/remove', requestHandler.dashboard.delete);
 
