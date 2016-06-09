@@ -7,9 +7,17 @@ class Edit extends React.Component {
     super(props);
 
     this.state = {
-      visible: 'none'
+      visible: 'none',
+      startDate: null,
+      endDate: null,
+      options: null
     };
     this.removeGallery = this.removeGallery.bind(this);
+    this.dropdownSelect = this.dropdownSelect.bind(this);
+  }
+
+  dropdownSelect (e) {
+    this.setState({options: e.target.value});
   }
 
   swapVisibility() {
@@ -17,11 +25,24 @@ class Edit extends React.Component {
     this.setState({ visible: val });
   }
 
+  handleSubmit (e) {
+    e.preventDefault();
+    console.log('start is', this.state.startDate);
+    console.log('end is', this.state.endDate);
+
+    // Make sure the startDate is before or the same as the endDate
+    console.log(this);
+    console.log(this.props);
+    if ( this.state.startDate <= this.state.endDate ) {
+      this.props.submitHandler(this.state.startDate, this.state.endDate, '/update');
+    }
+
+  }
+
   removeGallery () {
     // ajax call to database
     if (this.props.photoArc[0]) {
       var context = this;
-      // then make ajax request with data this.props.photoArc[0].arcId
       $.ajax({
         method: 'DELETE',
         url: '/remove',
@@ -45,6 +66,8 @@ class Edit extends React.Component {
               <form>
                 <div>
                   <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove
+                  </button>
+                  <button type="submit" onClick={this.handleSubmit.bind(this)}>Change Dates
                   </button>
                 </div>
                 <p className='inputs'>
