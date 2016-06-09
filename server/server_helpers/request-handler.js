@@ -228,9 +228,5 @@ module.exports.dashboard = {
                 }
               });
         res.send('success');
-
-        // TODO: find rows in database by arcId
-        // update images and date
-
     }
 };
