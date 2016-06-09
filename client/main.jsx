@@ -45,8 +45,10 @@ class Main extends React.Component {
         if (arcId) {
           data.arcId = arcId;
         }
+        data.startDate = startDate;
+        data.endDate = endDate;
 
-        console.log('Data from submitHandler ===============>', data);
+        // console.log('Data from submitHandler ===============>', data);
 
         // console.log('submitHandler data', data);
         // console.log('No picture ==================>', data.photos.data.length);
