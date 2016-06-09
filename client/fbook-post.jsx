@@ -46,7 +46,7 @@ class FacebookPost extends React.Component {
       {
         message: 'Example Photo Share',
         status: 'success',
-        url: 'http://i.imgur.com/ibLnsac.jpg',
+        url: this.state.photoUrl,
         access_token: sessionStorage.getItem('access_token'),
       },
       function(response) {
@@ -66,8 +66,8 @@ class FacebookPost extends React.Component {
       <div>
         <h2 className="page-title">Share Your Collage</h2>
         <div className="gallery-container">
-          <img src={this.state.photoUrl} />
-          <button type="button" onClick={this.shareCollageToFacebook.bind(this)}>Share on Facebook</button>
+          <div><img src={this.state.photoUrl} /></div>
+          <div><button type="button" onClick={this.shareCollageToFacebook.bind(this)}>Share on Facebook</button></div>
           <div className="statusMsg">{this.state.statusMsg}</div>
         </div>
       </div>
