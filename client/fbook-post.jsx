@@ -6,6 +6,8 @@ class FacebookPost extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log('FacebookPost props', this.props);
+
     this.state = {
       hasPosted: false,
       statusMsg: '',
@@ -36,7 +38,7 @@ class FacebookPost extends React.Component {
 
   shareCollageToFacebook() {
     console.log('shareCollageToFacebook Called');
-    this.setState({ statusMsg: 'Saving...' });
+    this.setState({ statusMsg: 'Uploading your collage...' });
 
     FB.api(
       'me/photos',
