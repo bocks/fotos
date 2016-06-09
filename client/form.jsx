@@ -48,19 +48,21 @@ class Form extends React.Component {
           photos: response
         };
         console.log('submitHandler data', data);
-
-        $.post({
-          url: '/create',
-          data: JSON.stringify(data),
-          contentType: "application/json",
-          success: function() {
-            console.log('SUCCESS in submitHandler');
-            hashHistory.push('dashboard');
-          },
-          error: function() {
-            console.log('ERROR in submitHandler');
-          }
-        });
+        // console.log('No picture ==================>', data.photos.data.length);
+        if ( data.photos.data.length > 0 ) {
+          $.post({
+            url: '/create',
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function() {
+              console.log('SUCCESS in submitHandler');
+              hashHistory.push('dashboard');
+            },
+            error: function() {
+              console.log('ERROR in submitHandler');
+            }
+          });
+        }
       });
     // });
   }
