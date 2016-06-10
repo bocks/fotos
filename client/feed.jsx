@@ -48,31 +48,25 @@ class Feed extends React.Component {
   }
 
   render() {
-    if (!this.state.arcs[0]) {
-      return (
-        <div>
-          Loading...
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <h2 className="page-title">Your Stories</h2>
-          <div className="gallery-container">
-           {this.state.arcs.map((arc) => {
-             return (
-              <div>
-                <span>{this.state.arcs[0][0].startDate}</span>
-                <span>{this.state.arcs[0][0].endDate}</span>
-                <Arc key={this.state.count++} photoArc={arc} />
-                <Edit photoArc={arc} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
-              </div>
-             );}
-           )}
+    return (
+      !this.state.arcs[0] ? <div> Loading... </div> :
+          <div>
+            <h2 className="page-title">Your Stories</h2>
+            <div className="gallery-container">
+             {this.state.arcs.map((arc, i) => {
+               return (
+                <div>
+                  <Arc key={this.state.count++} photoArc={arc} />
+                  <span>From {this.state.arcs[i][0].startDate.toString().slice(0, 10)}  </span>
+                  <span>to  {this.state.arcs[i][0].endDate.toString().slice(0, 10)}</span>
+                  <Edit photoArc={arc} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
+                </div>
+               );}
+             )}
+            </div>
           </div>
-        </div>
-      )
-    }
+    );
+
   }
 
 };
