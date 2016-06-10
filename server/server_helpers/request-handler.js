@@ -2,6 +2,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var bluebird = require('bluebird');
 var url = require('url');
+var _ = require('underscore');
 var db = require('../db/config.js');
 var Users = require('../db/collections/users');
 var User = require('../db/models/user');
@@ -66,10 +67,14 @@ var minimizeAndRandArr = function (arr, targetLength, callback) {
         return URL.attributes.url;
        });
        console.log('Response from blockedURL ==============>', blockedURL);
-       for (var i = 0; i < totalLen; i += di) {
+       for (var i = 0; i < totalLen;) {
          var ind = Math.floor(i + Math.floor(Math.random()*di));
          // if this url is not blacklisted
-         results.push(arr[ind]);
+         if (!_.contains(blockedURL, arr[ind].images[0].source)) {
+           results.push(arr[ind]);
+           i += di;
+         }
+         // console.log('arr IND source ============>', arr[ind].images[0].source);
        }
        // console.log('Selection from minimizeAndRandArr ===========>', results);
        callback(results);
