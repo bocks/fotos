@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Lightbox from 'react-images';
+import $ from 'jquery';
 
 class Arc extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Arc extends React.Component {
     this.gotoPrevious = this.gotoPrevious.bind(this);
     this.handleClickImage = this.handleClickImage.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
+    this.swapImage = this.swapImage.bind(this);
   }
 
   openLightbox (index, event) {
@@ -46,6 +48,25 @@ class Arc extends React.Component {
     this.gotoNext();
   }
 
+  swapImage () {
+    // grab the id of the image we'd like to remove
+    var id = this.id;
+
+    // post it to a server endpoint for further processing
+    $.post({
+      url: '/swap',
+      data: JSON.stringify(id),
+      contentType: 'application/json',
+      success: function() {
+        console.log('SUCCESS in swapImage');
+        // if (updateDOM) {
+        //   updateDOM();
+        // }
+        // hashHistory.push('dashboard');
+      }
+    });
+  }
+
 
   renderGallery () {
     console.log('in renderGallery:');
@@ -71,7 +92,7 @@ class Arc extends React.Component {
             </a>
           </div>
           <div>
-            <a>swap</a>
+            <a onClick={ this.swapImage.bind(obj) }>swap</a>
           </div>
         </div>
       );
