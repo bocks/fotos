@@ -185,6 +185,7 @@ module.exports.dashboard = {
           });
         })
         .then(function() {
+          Collage.delete(arcId);
           Arc.forge({id: arcId})
             .fetch()
             .then(function(arc) {
