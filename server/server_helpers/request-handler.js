@@ -155,7 +155,8 @@ module.exports.dashboard = {
                         src: imageMatched.models[img].attributes.url,
                         arcId: imageMatched.models[img].attributes.arc_id,
                         startDate: arcMatched.models[index].attributes.query_start_date,
-                        endDate: arcMatched.models[index].attributes.query_end_date
+                        endDate: arcMatched.models[index].attributes.query_end_date,
+                        userId: arcMatched.models[index].attributes.user_id
                       });
                     }
                     results.push(result);
@@ -254,6 +255,8 @@ module.exports.dashboard = {
     swap: function(res, req) {
       console.log(res.body);
       console.log(res.body.imageUrl);
+      console.log(res.body.userId);
+
 
      // look up this image in images table
      // blacklist this image
