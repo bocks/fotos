@@ -53,12 +53,12 @@ class Feed extends React.Component {
           <div>
             <h2 className="page-title">Your Stories</h2>
             <div className="gallery-container">
-             {this.state.arcs.map((arc) => {
+             {this.state.arcs.map((arc, i) => {
                return (
                 <div>
                   <Arc key={this.state.count++} photoArc={arc} />
-                  <span>From {this.state.arcs[this.state.count - 1][0].startDate.toString().slice(0, 10)}  </span>
-                  <span>to  {this.state.arcs[this.state.count - 1][0].endDate.toString().slice(0, 10)}</span>
+                  <span>From {this.state.arcs[i][0].startDate.toString().slice(0, 10)}  </span>
+                  <span>to  {this.state.arcs[i][0].endDate.toString().slice(0, 10)}</span>
                   <Edit photoArc={arc} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
                 </div>
                );}
