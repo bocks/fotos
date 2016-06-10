@@ -16,18 +16,16 @@
 }
 
 .page-title {
-  margin-top: 70px;
-  background-color: rgba(10,10,10,0.6);
-  position: absolute;
-  left: 200px;
-  justify-content: flex-start;
-  align-items: center;
   width: 70%;
-  text-align: center;
+  margin: 10px auto;
   padding: 10px;
+
   border-radius: 5px;
-  border-color: lightblue;
+
+  text-align: center;
   font-family: 'Raleway', sans-serif;
+
+  background-color: #171f26;
 }
 
 
