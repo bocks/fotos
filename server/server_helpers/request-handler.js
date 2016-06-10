@@ -169,7 +169,7 @@ module.exports.dashboard = {
     delete: function(req, res) {
       var arcId = req.body.arcId;
       console.log(arcId);
-      
+
       Images.reset()
         .query({where: {arc_id: arcId}})
         .fetch()
@@ -199,9 +199,6 @@ module.exports.dashboard = {
       },
 
     post: function(req, res) {
-        console.log('received request to UPDATE');
-        console.log(req.body);
-
         var arcId = req.body.arcId;
         var startDate = req.body.startDate;
         var endDate = req.body.endDate;
@@ -231,7 +228,7 @@ module.exports.dashboard = {
               imgUrl[3].images[0].source
             ];
             Collage.collagify(collageArray, arcId);
-            
+
               for (var imgId = 0; imgId < imgUrl.length; imgId++) {
                 var imgSizeArr = imgUrl[imgId].images;
                   var img = imgSizeArr[0];
@@ -252,5 +249,18 @@ module.exports.dashboard = {
                 }
               });
         res.send('success');
+    },
+
+    swap: function(res, req) {
+      console.log(res.body);
+      console.log(res.body.imageUrl);
+
+     // look up this image in images table
+     // blacklist this image
+
+     // api call to FB for replacement
+     // update image with new url, height, width
+     // re render page
+
     }
 };
