@@ -51,7 +51,8 @@ class Arc extends React.Component {
   swapImage () {
     // grab the id of the image we'd like to remove
     var data = {
-      imageUrl: this
+      imageUrl: this.src,
+      userId: this.userId
     };
 
     // post it to a server endpoint for further processing
@@ -75,6 +76,7 @@ class Arc extends React.Component {
     // photoArc = the set of images in the story
     console.log('photoArc:', this.props.photoArc);
     if (!this.props.photoArc) return;
+    console.log(this.props.photoArc);
     const gallery = this.props.photoArc.map((obj, i) => {
       return (
         <div>
@@ -94,7 +96,7 @@ class Arc extends React.Component {
             </a>
           </div>
           <div>
-            <a onClick={ this.swapImage.bind(obj.src) }>swap</a>
+            <a onClick={ this.swapImage.bind(obj) }>swap</a>
           </div>
         </div>
       );
