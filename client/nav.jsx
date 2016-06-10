@@ -10,17 +10,15 @@ var topNav = (props) => (
 	<Navbar className="navbar">
 		<Nav className="links">
       <NavItem className="brand">FotoTime</NavItem>
-			<Link style={linkStyle} to="/dashboard" activeClassName="active" style={linkStyle}>Dashboard</Link>
-			<Link style={linkStyle} to="/create" activeClassName="active" style={linkStyle}>Create new story</Link>
-		</Nav>
-		<Nav pullRight>
+			<NavItem><Link style={linkStyle} to="/dashboard" activeClassName="active" style={linkStyle}>Dashboard</Link></NavItem>
+			<NavItem><Link style={linkStyle} to="/create" activeClassName="active" style={linkStyle}>Create new story</Link></NavItem>
 			<NavItem className="logout" onClick={() => {
         if (window.FB) {
         	FB.logout();
         }
         hashHistory.push('login');
       }}>Logout</NavItem>
-		</Nav>
+    </Nav>
  </Navbar>
 );
 
