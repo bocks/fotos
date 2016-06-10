@@ -62,7 +62,10 @@ var minimizeAndRandArr = function (arr, targetLength, callback) {
  } else {
    Blacklist.fetchAll()
      .then( function(res) {
-       // console.log('Response from blacklist ==============>', res);
+       var blockedURL = res.models.map( function(URL) {
+        return URL.attributes.url;
+       });
+       console.log('Response from blockedURL ==============>', blockedURL);
        for (var i = 0; i < totalLen; i += di) {
          var ind = Math.floor(i + Math.floor(Math.random()*di));
          // if this url is not blacklisted
