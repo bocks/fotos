@@ -54,19 +54,26 @@ class Arc extends React.Component {
     if (!this.props.photoArc) return;
     const gallery = this.props.photoArc.map((obj, i) => {
       return (
-        <a
-          href={obj.src}
-          key={i}
-          onClick={(e) => this.openLightbox(i, e)}
-          style={styles.thumbnail}
-          >
-          <img
-            height={styles.thumbnail.size}
-            src={obj.thumbnail}
-            style={styles.thumbnailImage}
-            width={styles.thumbnail.size}
-          />
-        </a>
+        <div>
+          <div>
+            <a
+              href={obj.src}
+              key={i}
+              onClick={(e) => this.openLightbox(i, e)}
+              style={styles.thumbnail}
+              >
+              <img
+                height={styles.thumbnail.size}
+                src={obj.thumbnail}
+                style={styles.thumbnailImage}
+                width={styles.thumbnail.size}
+              />
+            </a>
+          </div>
+          <div>
+            <a>swap</a>
+          </div>
+        </div>
       );
     });
 
@@ -129,7 +136,8 @@ const styles = {
     display: 'block',
     height: 'auto',
     maxWidth: '100%',
-    height: THUMBNAIL_SIZE
+    height: THUMBNAIL_SIZE,
+    // verticalAlign: 'top'
     // left: '50%',
     // position: 'relative',
     //
@@ -137,7 +145,7 @@ const styles = {
     // MozTransform:    'translateX(-50%)',
     // msTransform:     'translateX(-50%)',
     // transform:       'translateX(-50%)',
-  },
+  }
 };
 
 
