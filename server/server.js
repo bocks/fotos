@@ -38,9 +38,7 @@ app.post('/create', requestHandler.create.post);
 app.get('/dashboard', requestHandler.dashboard.get);
 app.post('/update', requestHandler.dashboard.post);
 
-app.post('/swap', function() {
-  console.log('Received post request to swap!');
-});
+app.post('/swap', requestHandler.dashboard.swap);
 
 app.delete('/remove', requestHandler.dashboard.delete);
 

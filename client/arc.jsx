@@ -16,7 +16,7 @@ class Arc extends React.Component {
     this.gotoPrevious = this.gotoPrevious.bind(this);
     this.handleClickImage = this.handleClickImage.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
-    this.swapImage = this.swapImage.bind(this);
+    this.swapImage = this.swapImage;
   }
 
   openLightbox (index, event) {
@@ -50,12 +50,14 @@ class Arc extends React.Component {
 
   swapImage () {
     // grab the id of the image we'd like to remove
-    var id = this.id;
+    var data = {
+      imageUrl: this
+    };
 
     // post it to a server endpoint for further processing
     $.post({
       url: '/swap',
-      data: JSON.stringify(id),
+      data: JSON.stringify(data),
       contentType: 'application/json',
       success: function() {
         console.log('SUCCESS in swapImage');
@@ -92,7 +94,7 @@ class Arc extends React.Component {
             </a>
           </div>
           <div>
-            <a onClick={ this.swapImage.bind(obj) }>swap</a>
+            <a onClick={ this.swapImage.bind(obj.src) }>swap</a>
           </div>
         </div>
       );
