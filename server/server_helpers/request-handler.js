@@ -58,19 +58,21 @@ var minimizeAndRandArr = function (arr, targetLength, callback) {
  var di = totalLen/targetLength;
  var results = [];
 
+ // TODO: handle the case which all photos are in blacklist
  if (totalLen <= targetLength) {
+    // TODO: filter out photos in blacklist
    return arr;
  } else {
    Blacklist.fetchAll()
      .then( function(res) {
-       var blockedURL = res.models.map( function(URL) {
+       var blockedURLs = res.models.map( function(URL) {
         return URL.attributes.url;
        });
-       console.log('Response from blockedURL ==============>', blockedURL);
+       console.log('Response from blockedURLs ==============>', blockedURLs);
        for (var i = 0; i < totalLen;) {
          var ind = Math.floor(i + Math.floor(Math.random()*di));
          // if this url is not blacklisted
-         if (!_.contains(blockedURL, arr[ind].images[0].source)) {
+         if (!_.contains(blockedURLs, arr[ind].images[0].source)) {
            results.push(arr[ind]);
            i += di;
          }
