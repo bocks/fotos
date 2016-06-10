@@ -1,4 +1,4 @@
-// configure the database 
+// configure the database
 var knex = require('knex')({
   client: 'mysql',
   connection: {
@@ -59,6 +59,19 @@ db.knex.schema.hasTable('images').then(function (exists) {
       image.string('url', 255);
       // could also potentially use table here so that 1 image can be in more than 1 arc
       image.integer('arc_id').unsigned().references('arcs.id');
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
+
+/* Dislike table */
+db.knex.schema.hasTable('blacklist').then(function (exists) {
+  if (!exists) {
+    db.knex.schema.createTable('blacklist', function (photo) {
+      photo.increments('id').primary();
+      photo.string('url', 255);
+      photo.integer('user_id').unsigned().references('users.id'); // unsigned() is NECESSARY in mysql
     }).then(function (table) {
       console.log('Created Table', table);
     });
