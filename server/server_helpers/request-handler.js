@@ -14,7 +14,7 @@ var Images = require('../db/collections/images.js');
 
 var Collage = require('./collager');
 
-var limit = 5;
+var limit = 4;
 
 module.exports.main = {
   get: function (req, res) {
