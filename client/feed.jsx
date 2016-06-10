@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Arc from './arc';
 import $ from 'jquery';
 import Edit from './edit';
-
+import { Link, hashHistory } from 'react-router';
 
 // expecting to be passed an array of urls in props
 
@@ -59,6 +59,7 @@ class Feed extends React.Component {
                   <Arc key={this.state.count++} photoArc={arc} />
                   <span>From {this.state.arcs[i][0].startDate.toString().slice(0, 10)}  </span>
                   <span>to  {this.state.arcs[i][0].endDate.toString().slice(0, 10)}</span>
+                  <Link to={'/post/' + this.state.arcs[i][0].arcId}>Post</Link>
                   <Edit photoArc={arc} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
                 </div>
                );}
