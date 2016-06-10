@@ -12,6 +12,9 @@ var Arcs = require('../db/collections/arcs');
 var Image = require('../db/models/image.js');
 var Images = require('../db/collections/images.js');
 
+var Blacklist = require('../db/models/blacklist');
+var Blacklists = require('../db/collections/blacklists');
+
 var Collage = require('./collager');
 
 var limit = 4;
@@ -253,14 +256,19 @@ module.exports.dashboard = {
     },
 
     swap: function(res, req) {
-      console.log(res.body);
-      console.log(res.body.imageUrl);
-      console.log(res.body.userId);
+      // TODO: check for duplicates
 
+      // blacklist this image
+      var blacklist = new Blacklist();
 
-     // look up this image in images table
-     // blacklist this image
+      blacklist.save({
+        user_id: res.body.userId,
+        url: res.body.imageUrl
+      }).then( function() {
+        console.log('saved blacklisted item to db');
+      });
 
+      // res.end();
      // api call to FB for replacement
      // update image with new url, height, width
      // re render page
