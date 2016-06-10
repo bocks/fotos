@@ -52,21 +52,26 @@ module.exports.signin = {
 };
 
 // take an array and return arr selecting only =limit # of elements
-var minimizeAndRandArr = function (arr, targetLength) {
-  var totalLen = arr.length;
-  var di = totalLen/targetLength;
-  var results = [];
+var minimizeAndRandArr = function (arr, targetLength, callback) {
+ var totalLen = arr.length;
+ var di = totalLen/targetLength;
+ var results = [];
 
-  if (totalLen <= targetLength) {
-    return arr;
-  } else {
-    for (var i = 0; i < totalLen; i += di) {
-      var ind = Math.floor(i + Math.floor(Math.random()*di));
-      console.log(ind);
-      results.push(arr[ind]);
-    }
-  }
-  return results;
+ if (totalLen <= targetLength) {
+   return arr;
+ } else {
+   Blacklist.fetchAll()
+     .then( function(res) {
+       // console.log('Response from blacklist ==============>', res);
+       for (var i = 0; i < totalLen; i += di) {
+         var ind = Math.floor(i + Math.floor(Math.random()*di));
+         // if this url is not blacklisted
+         results.push(arr[ind]);
+       }
+       // console.log('Selection from minimizeAndRandArr ===========>', results);
+       callback(results);
+     });
+ }
 }
 
 module.exports.create = {
@@ -78,51 +83,49 @@ module.exports.create = {
     // store obj from fb api calls into db
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
-    var imgUrl = minimizeAndRandArr(req.body.photos.data, limit);
 
-    var collageArray = [
-      imgUrl[0].images[0].source,
-      imgUrl[1].images[0].source,
-      imgUrl[2].images[0].source,
-      imgUrl[3].images[0].source
-    ];
-    // fetch the current user to grab id for foreign key
-    User.forge({fbId: req.body.id})
-      .fetch()
-      .then(function (userMatched) {
-        // make new arc
-        var arc = new Arc({
-          name: Date()
+    var callback = function(results) {
+      var collageArray = [
+        results[0].images[0].source,
+        results[1].images[0].source,
+        results[2].images[0].source,
+        results[3].images[0].source
+      ];
+      // fetch the current user to grab id for foreign key
+      User.forge({fbId: req.body.id})
+        .fetch()
+        .then(function (userMatched) {
+          // make new arc
+          var arc = new Arc({
+            name: Date()
+          });
+          return arc.save({
+            user_id: userMatched.id,
+            query_start_date: startDate,
+            query_end_date: endDate
+          });
+        })
+        .then(function (newArc) {
+          // console.log('Images in arc =>', results);
+          Collage.collagify(collageArray, newArc.id);
+
+          // store img into new arc
+          for (var imgId = 0; imgId < results.length; imgId++) {
+            var imgSizeArr = results[imgId].images;
+              var img = imgSizeArr[0];
+              var image = new Image({
+                height: img.height,
+                width: img.width,
+                url: img.source
+              });
+              image.save({arc_id: newArc.id});
+          }
+          res.send('success');
         });
-        return arc.save({
-          user_id: userMatched.id,
-          query_start_date: startDate,
-          query_end_date: endDate
-        });
-      })
-      .then(function (newArc) {
-        console.log('Images in arc =>', imgUrl);
-        Collage.collagify(collageArray, newArc.id);
+      }
 
-      // store img into new arc
-        for (var imgId = 0; imgId < imgUrl.length; imgId++) {
-          var imgSizeArr = imgUrl[imgId].images;
-          // for (var imgSize = 0; imgSize < imgSizeArr.length; imgSize++) {
-            // var img = imgSizeArr[imgSize];
-            var img = imgSizeArr[0];
-            console.log("Img instance", img);
-            var image = new Image({
-              height: img.height,
-              width: img.width,
-              url: img.source
-            });
-
-            image.save({arc_id: newArc.id});
-        }
-      });
-
-    res.send('success');
-  }
+      minimizeAndRandArr(req.body.photos.data, limit, callback);
+    }
 }
 
 module.exports.dashboard = {

@@ -64,8 +64,8 @@ class Main extends React.Component {
               }
               hashHistory.push('dashboard');
             },
-            error: function() {
-              console.log('ERROR in submitHandler');
+            error: function(err) {
+              console.log('ERROR in submitHandler', err);
             }
           });
         }
