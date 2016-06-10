@@ -57,8 +57,8 @@ class Feed extends React.Component {
                return (
                 <div>
                   <Arc key={this.state.count++} photoArc={arc} />
-                  <span>From {this.state.arcs[0][0].startDate.toString().slice(0, 10)}  </span>
-                  <span>to  {this.state.arcs[0][0].endDate.toString().slice(0, 10)}</span>
+                  <span>From {this.state.arcs[this.state.count - 1][0].startDate.toString().slice(0, 10)}  </span>
+                  <span>to  {this.state.arcs[this.state.count - 1][0].endDate.toString().slice(0, 10)}</span>
                   <Edit photoArc={arc} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
                 </div>
                );}
