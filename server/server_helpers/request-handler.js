@@ -185,12 +185,12 @@ module.exports.dashboard = {
           });
         })
         .then(function() {
-          Collage.delete(arcId);
           Arc.forge({id: arcId})
             .fetch()
             .then(function(arc) {
               arc.destroy()
               .then(function() {
+                Collage.delete(arcId);
                 console.log('Delete complete');
                 res.send('Delete worked.');
               });
