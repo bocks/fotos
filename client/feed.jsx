@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Arc from './arc';
 import $ from 'jquery';
 import Edit from './edit';
-import Grid from './grid';
 
 
 // expecting to be passed an array of urls in props
