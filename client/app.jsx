@@ -19,7 +19,7 @@ render((
     <Route component={Main}>
       <Route path='create' component={Form}/>
       <Route path='dashboard' component={Feed}/>
-      <Route path='post' component={FacebookPost}/>
+      <Route path='post/:arcId' component={FacebookPost}/>
     </Route>
   </Router>
   ), document.getElementsByClassName('mounting')[0]);

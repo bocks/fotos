@@ -10,7 +10,7 @@ class FacebookPost extends React.Component {
     this.state = {
       hasPosted: false,
       statusMsg: '',
-      photoUrl: 'http://i.imgur.com/ibLnsac.jpg',
+      photoUrl: '/collages/collage-' + this.props.params.arcId + '.jpeg'
     }
   }
 
