@@ -20,5 +20,9 @@ module.exports = {
         src.pipe(dest);
       })
     ;
+  },
+  
+  delete: function(arcId) {
+    fs.unlink('public/collages/collage-' + arcId + '.jpeg');
   }
 };

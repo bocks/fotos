@@ -169,7 +169,7 @@ module.exports.dashboard = {
     delete: function(req, res) {
       var arcId = req.body.arcId;
       console.log(arcId);
-
+      
       Images.reset()
         .query({where: {arc_id: arcId}})
         .fetch()
@@ -190,6 +190,7 @@ module.exports.dashboard = {
             .then(function(arc) {
               arc.destroy()
               .then(function() {
+                Collage.delete(arcId);
                 console.log('Delete complete');
                 res.send('Delete worked.');
               });
@@ -223,7 +224,14 @@ module.exports.dashboard = {
           .query({where: {arc_id: arcId}})
           .fetch()
           .then(function (images) {
-
+            var collageArray = [
+              imgUrl[0].images[0].source,
+              imgUrl[1].images[0].source,
+              imgUrl[2].images[0].source,
+              imgUrl[3].images[0].source
+            ];
+            Collage.collagify(collageArray, arcId);
+            
               for (var imgId = 0; imgId < imgUrl.length; imgId++) {
                 var imgSizeArr = imgUrl[imgId].images;
                   var img = imgSizeArr[0];
