@@ -48,21 +48,19 @@ class Arc extends React.Component {
     this.gotoNext();
   }
 
-  swapImage () {
-
+  swapImage (obj) {
     var context = this;
+
     // make a query to FB for a replacement image
-    FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+this.endDate+'&since='+this.startDate+'&access_token='+sessionStorage.getItem('access_token'),
+    FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+obj.endDate+'&since='+obj.startDate+'&access_token='+sessionStorage.getItem('access_token'),
       function (response) {
-        // console.log('swapHandler response', response);
 
         // grab the id of the image we'd like to remove as well as the collection of replacement photo options
         var data = {
-          imageUrl: context.src,
-          userId: context.userId,
+          imageUrl: obj.src,
+          userId: obj.userId,
           photos: response
         };
-        // console.log('data-------->', data);
         // post it to a server endpoint for further processing
         $.post({
           url: '/swap',
@@ -73,7 +71,8 @@ class Arc extends React.Component {
           }
         })
         .then(function(result) {
-          console.log('did we get something back?', result);
+          console.log(context.props);
+          context.props.getData();
         });
 
       }
@@ -106,7 +105,7 @@ class Arc extends React.Component {
             </a>
           </div>
           <div>
-            <a onClick={ this.swapImage.bind(obj) }>swap</a>
+            <a onClick={ this.swapImage.bind(this, obj) }>swap</a>
           </div>
         </div>
       );
