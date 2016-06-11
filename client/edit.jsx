@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import { Link, hashHistory } from 'react-router';
+
 
 class Edit extends React.Component {
   constructor(props) {
@@ -57,12 +59,13 @@ class Edit extends React.Component {
   render() {
     return (
           <div className='edit-panel'>
-            <button onClick={this.swapVisibility.bind(this)}>Edit</button>
+            <button onClick={this.swapVisibility.bind(this)}>Select</button>
             <div className='inputForm' style={{ 'display': this.state.visible }}>
               <form>
                 <div>
                   <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove</button>
                   <button type="submit" onClick={this.handleSubmit.bind(this)}>Change Dates</button>
+                  <div className='share-link'><Link to={'/post/' + this.props.photoArc[0].arcId}><button>Share Collage{this.props.photoArc[0].arcId}</button></Link></div>
                 </div>
                 <p className='inputs'>
                  <label>Start Date: </label>

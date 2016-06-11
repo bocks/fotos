@@ -284,7 +284,6 @@ module.exports.dashboard = {
         url: req.body.imageUrl
       })
       .then( function() {
-        // console.log('saved blacklisted item to db', req.body);
 
         minimizeAndRandArr(req.body.photos.data, 1, function(result) {
           var replacement = result[0].images[0];
@@ -298,12 +297,10 @@ module.exports.dashboard = {
             .query({where: {url: req.body.imageUrl}})
             .fetch()
             .then(function(toReplace) {
-              // console.log('replacement id----->', toReplace.models[0].id);
 
               new Image({ id: toReplace.models[0].id })
                 .save(newImage, {patch: true})
                 .then(function(newImage) {
-                  // console.log('imgs has been updated => ', newImage);
                   res.end();
                 });
 

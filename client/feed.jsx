@@ -61,8 +61,14 @@ class Feed extends React.Component {
                     <span>From {this.state.arcs[i][0].startDate.toString().slice(0, 10)}  </span>
                     <span>to  {this.state.arcs[i][0].endDate.toString().slice(0, 10)}</span>
                   </div>
-                  <div><Link to={'/post/' + this.state.arcs[i][0].arcId}><button>Share Collage</button></Link></div>
-                  <Edit photoArc={arc} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
+
+
+
+
+
+
+
+                  <Edit photoArc={arc} arcs={this.state.arcs} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
                 </div>
                );}
              )}
