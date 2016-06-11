@@ -54,34 +54,34 @@ module.exports.signin = {
 
 // take an array and return arr selecting only =limit # of elements
 var minimizeAndRandArr = function (arr, targetLength, callback) {
- var totalLen = arr.length;
- var di = totalLen/targetLength;
- var results = [];
+  var totalLen = arr.length;
+  var count = 0;
+  var results = [];
 
- // TODO: handle the case which all photos are in blacklist
- if (totalLen <= targetLength) {
-    // TODO: filter out photos in blacklist
-   return arr;
- } else {
-   Blacklist.fetchAll()
-     .then( function(res) {
-       var blockedURLs = res.models.map( function(URL) {
+  Blacklist.fetchAll()
+   .then( function(res) {
+
+      // collect all the blocked urls
+      var blockedURLs = res.models.map( function(URL) {
         return URL.attributes.url;
-       });
-       console.log('Response from blockedURLs ==============>', blockedURLs);
-       for (var i = 0; i < totalLen;) {
-         var ind = Math.floor(i + Math.floor(Math.random()*di));
-         // if this url is not blacklisted
-         if (!_.contains(blockedURLs, arr[ind].images[0].source)) {
-           results.push(arr[ind]);
-           i += di;
-         }
-         // console.log('arr IND source ============>', arr[ind].images[0].source);
-       }
-       // console.log('Selection from minimizeAndRandArr ===========>', results);
-       callback(results);
-     });
- }
+      });
+
+      while (arr.length > 0) {
+        var ind = Math.floor(Math.random() * arr.length);
+
+        // check blacklisted status before adding to results
+        if (!_.contains(blockedURLs, arr[ind].images[0].source)) {
+          results.push(arr[ind]);
+          count += 1;
+        }
+        arr.splice(ind, 1);
+
+        if (arr.length === 0 || count === targetLength) {
+          callback(results);
+          return;
+        }
+      }
+    });
 }
 
 module.exports.create = {
@@ -95,12 +95,14 @@ module.exports.create = {
     var endDate = req.body.endDate;
 
     var callback = function(results) {
-      var collageArray = [
-        results[0].images[0].source,
-        results[1].images[0].source,
-        results[2].images[0].source,
-        results[3].images[0].source
-      ];
+      var collageArray = [];
+
+      for (var i = 0; i < results.length; i++) {
+        if (results[i]) {
+          collageArray.push(results[i].images[0].source);
+        }
+      }
+
       // fetch the current user to grab id for foreign key
       User.forge({fbId: req.body.id})
         .fetch()
@@ -185,13 +187,11 @@ module.exports.dashboard = {
 
     delete: function(req, res) {
       var arcId = req.body.arcId;
-      console.log(arcId);
 
       Images.reset()
         .query({where: {arc_id: arcId}})
         .fetch()
         .then(function(images) {
-          console.log(images.models);
 
           images.models.forEach(function(image) {
             Image.forge({id: image.id})
@@ -208,13 +208,13 @@ module.exports.dashboard = {
               arc.destroy()
               .then(function() {
                 Collage.delete(arcId);
-                console.log('Delete complete');
                 res.send('Delete worked.');
               });
             });
         });
       },
 
+    // TODO: check that this still works
     post: function(req, res) {
         var arcId = req.body.arcId;
         var startDate = req.body.startDate;
@@ -268,23 +268,28 @@ module.exports.dashboard = {
         res.send('success');
     },
 
-    swap: function(res, req) {
-      // TODO: check for duplicates
+    // TODO: check for duplicates in blacklist table
+    swap: function(req, res) {
 
       // blacklist this image
       var blacklist = new Blacklist();
 
       blacklist.save({
-        user_id: res.body.userId,
-        url: res.body.imageUrl
-      }).then( function() {
-        console.log('saved blacklisted item to db');
+        user_id: req.body.userId,
+        url: req.body.imageUrl
+      })
+      .then( function() {
+        // console.log('saved blacklisted item to db', req.body);
+
+        minimizeAndRandArr(req.body.photos.data, 1, function(result) {
+          // console.log('sending replacement: ', result);
+          res.json(result);
+          res.end();
+
+          // find the image we want to replace in db
+          // swap out its info with this one
+          // rerender dashboard page on client side
+        });
       });
-
-      // res.end();
-     // api call to FB for replacement
-     // update image with new url, height, width
-     // re render page
-
     }
 };

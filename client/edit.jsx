@@ -28,8 +28,7 @@ class Edit extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
-    console.log('start is', this.state.startDate);
-    console.log('end is', this.state.endDate);
+
     // Make sure the startDate is before or the same as the endDate
     if ( this.state.startDate <= this.state.endDate ) {
       this.props.submitHandler(this.state.startDate, this.state.endDate, '/update', this.props.photoArc[0].arcId, this.props.getData.bind(this));

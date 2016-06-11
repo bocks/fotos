@@ -49,25 +49,35 @@ class Arc extends React.Component {
   }
 
   swapImage () {
-    // grab the id of the image we'd like to remove
-    var data = {
-      imageUrl: this.src,
-      userId: this.userId
-    };
 
-    // post it to a server endpoint for further processing
-    $.post({
-      url: '/swap',
-      data: JSON.stringify(data),
-      contentType: 'application/json',
-      success: function() {
-        console.log('SUCCESS in swapImage');
-        // if (updateDOM) {
-        //   updateDOM();
-        // }
-        // hashHistory.push('dashboard');
+    var context = this;
+    // make a query to FB for a replacement image
+    FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+this.endDate+'&since='+this.startDate+'&access_token='+sessionStorage.getItem('access_token'),
+      function (response) {
+        // console.log('swapHandler response', response);
+
+        // grab the id of the image we'd like to remove as well as the collection of replacement photo options
+        var data = {
+          imageUrl: context.src,
+          userId: context.userId,
+          photos: response
+        };
+        // console.log('data-------->', data);
+        // post it to a server endpoint for further processing
+        $.post({
+          url: '/swap',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          success: function() {
+            console.log('SUCCESS in swapImage');
+          }
+        })
+        .then(function(result) {
+          console.log('did we get something back?', result);
+        });
+
       }
-    });
+    );
   }
 
 
