@@ -10,19 +10,20 @@ Our team added the following features to the existing [formidable-coffee/fotos](
 
 ### Edit & Delete Story Arcs
 
-A story arc can now be edited by changing its associated date range, or deleted entirely.
+* A story arc can now be edited by changing its associated date range, or deleted entirely.
 
 ![Edit & Delete Story Arcs](mockups/screen-edit-story-arcs.png)
 
 ### Swap & Blacklist Photos from Story Arcs
 
-An undesired photo that appears in a story arc may be swapped out for a replacement and marked for exclusion in any future story arcs.
+* An undesired photo that appears in a story arc may be swapped out for a replacement.
+* It will also be marked for exclusion in any future story arcs.
 
 ![Swap & Blacklist Photos from Story Arcs](mockups/screen-swap-photos.png)
 
 ### Create Photo Collage & Share to Facebook
 
-A story arc can now be compiled into a single collage and posted to that user's Facebook feed.
+* A story arc can now be compiled into a single collage and posted to that user's Facebook feed.
 
 ![Create Photo Collage & Share to Facebook](mockups/screen-photo-collage.png)
 
