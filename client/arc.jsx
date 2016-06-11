@@ -101,7 +101,7 @@ class Arc extends React.Component {
             </a>
           </div>
           <div>
-            <a onClick={ this.swapImage.bind(this, obj) }>swap</a>
+            <a className="swap" onClick={ this.swapImage.bind(this, obj) }>swap</a>
           </div>
         </div>
       );

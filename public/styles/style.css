@@ -116,6 +116,17 @@
   color: #4e5d6c;
 }
 
+.swap {
+  padding: 0px 2px;
+}
+
+.swap:hover{
+  background-color: #df691a;
+  text-decoration: none;
+  color: white;
+  cursor: hand;
+}
+
 .section {
   width: 80%;
   margin: 25px auto 0 auto;
