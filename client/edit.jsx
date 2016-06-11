@@ -20,7 +20,7 @@ class Edit extends React.Component {
     this.togglePanel = this.togglePanel.bind(this);
   }
 
-  showNoPhoto (photos) {
+  showNoPhoto () {
     this.setState({
       visible: ['block', 'block'],
       message: 'No photos to display in this date range'
@@ -46,7 +46,6 @@ class Edit extends React.Component {
       this.setState({
         message: 'Please select a valid date range'
       });
-      return;
     }
 
     // Make sure the startDate is before or the same as the endDate
