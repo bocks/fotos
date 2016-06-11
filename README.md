@@ -94,7 +94,7 @@ Create account and specifiy privileges. Here, we will be creating an `admin` acc
 ### Start Build Process and Server
 
 	npm run build
-	npm start
+	npm run serve
 
 ### View the Site
 
