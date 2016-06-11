@@ -7,11 +7,18 @@ class Form extends React.Component {
 			startDate: null,
 			endDate: null,
 			options: null,
-      message: ''
+      message: '',
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.dropdownSelect = this.dropdownSelect.bind(this);
 	}
+
+  showNoPhoto () {
+    this.setState({
+      message: 'No photos to display in this date range'
+    });
+    return;
+  }
 
 	handleSubmit (e) {
 		e.preventDefault();
@@ -25,7 +32,7 @@ class Form extends React.Component {
 
     // Make sure the startDate is before or the same as the endDate
     if ( this.state.startDate <= this.state.endDate ) {
-      this.props.submitHandler(this.state.startDate, this.state.endDate, '/create');
+      this.props.submitHandler(this.state.startDate, this.state.endDate, '/create', null, this.showNoPhoto.bind(this));
     }
 	}
 
