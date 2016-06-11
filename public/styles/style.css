@@ -188,6 +188,15 @@ button {
   font-family: 'Raleway', sans-serif;
 }
 
+.inputForm button {
+  background-color: #add8e6;
+  color: #444;
+}
+
+.inputForm button a {
+  color: #444;
+}
+
 .facebook-login {
   background-color: transparent;
   border: 3px solid lightblue;
