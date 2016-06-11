@@ -10,7 +10,7 @@ class FacebookPost extends React.Component {
     this.state = {
       hasPosted: false,
       statusMsg: '',
-      photoUrl: '/collages/collage-' + this.props.params.arcId + '.jpeg'
+      photoUrl: location.protocol + '//' + location.host + '/collages/collage-' + this.props.params.arcId + '.jpeg'
     }
   }
 
@@ -22,7 +22,6 @@ class FacebookPost extends React.Component {
       'me/photos',
       'post',
       {
-        message: 'Example Photo Share',
         status: 'success',
         url: this.state.photoUrl,
         access_token: sessionStorage.getItem('access_token'),
