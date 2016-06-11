@@ -13,11 +13,10 @@ class Form extends React.Component {
 		this.dropdownSelect = this.dropdownSelect.bind(this);
 	}
 
-  showNoPhoto () {
+  showNoPhoto (photos) {
     this.setState({
       message: 'No photos to display in this date range'
     });
-    return;
   }
 
 	handleSubmit (e) {
