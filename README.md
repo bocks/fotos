@@ -2,21 +2,27 @@
 
 ## Project Overview
 
-Most people have hundreds of photos stored in countless websites. It takes a significant amount of time to scroll through all of your photos to find your best memories from years ago. With Foto Time, we give you access to your memories. Choose a time range and we'll pick out a few photos from that time period. All of your photo stories are saved with Foto Time so you can review them anytime.
+Many people have hundreds of photos stored across countless websites. It takes a significant amount of time to scroll through all of your photos to find your best memories from years ago. With Foto Time, we give you easy access to your memories: simply choose a time range and we'll select a small sampling of photos from that time period. All of your photo stories are saved with Foto Time so you can review or share them anytime.
 
 ## Feature Additions
 
-Our team added the following features to the existing [formidable-coffee/fotos](https://github.com/formidable-coffee/fotos) project.
+Our team added the following features to the existing [formidable-coffee/fotos](https://github.com/formidable-coffee/fotos) project:
 
 ### Edit & Delete Story Arcs
+
+A story arc can now be edited by changing its associated date range, or deleted entirely.
 
 ![Edit & Delete Story Arcs](mockups/screen-edit-story-arcs.png)
 
 ### Swap & Blacklist Photos from Story Arcs
 
+An undesired photo that appears in a story arc may be swapped out for a replacement and marked for exclusion in any future story arcs.
+
 ![Swap & Blacklist Photos from Story Arcs](mockups/screen-swap-photos.png)
 
 ### Create Photo Collage & Share to Facebook
+
+A story arc can now be compiled into a single collage and posted to that user's Facebook feed.
 
 ![Create Photo Collage & Share to Facebook](mockups/screen-photo-collage.png)
 
@@ -115,10 +121,10 @@ Your site will now be accessible at [http://localhost:4000](http://localhost:400
 	sudo apt-get install mysql-server
 	sudo mysql_secure_installation
 	sudo mysql_install_db
-	
+
 Setup MySQL with an `admin` user for fotos app
 
-	Steps here	
+	Steps here
 
 ### Setup Facebook App ID
 
@@ -157,7 +163,7 @@ As root,
 	git clone https://github.com/bocks/fotos
 	cd fotos
 	npm install
-	
+
 ### Start Up App
 
 As deploy, from within the project directory,
