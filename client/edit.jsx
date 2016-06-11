@@ -67,9 +67,9 @@ class Edit extends React.Component {
             <div className='inputForm' style={{ 'display': this.state.visible[0] }}>
               <form>
                 <div>
+                  <button><Link to={'/post/' + this.props.photoArc[0].arcId}>Share Collage</Link></button>
                   <button type="submit" onClick={this.swapVisibility.bind(this, 1)}>Change Dates</button>
                   <button onClick={this.removeGallery.bind(this.props.photoArc)}>Delete</button>
-                  <button><Link to={'/post/' + this.props.photoArc[0].arcId}>Share Collage</Link></button>
                 </div>
                 <fieldset className='loading' style={{ 'display': this.state.visible[1] }}>
                   <p className='inputs'>

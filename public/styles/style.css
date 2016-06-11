@@ -91,6 +91,7 @@
   background: white;
   position: relative;
 
+  margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
@@ -111,9 +112,19 @@
   min-height: 30px;
 }
 
+.gallery-container .arc-wrap {
+  padding-top: 20px;
+}
+
 .gallery-container .arc-date {
-  margin: 5px;
+  width: 80%;
+  padding: 5px 0px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   color: #4e5d6c;
+  background: #add8e6;
+  margin: 25px auto 0px auto;
+  font-weight: bold;
 }
 
 .swap {
@@ -129,11 +140,13 @@
 
 .section {
   width: 80%;
-  margin: 25px auto 0 auto;
+  margin: 0 auto;
   height: 150px;
 
   border: 3px solid #add8e6;
-  border-radius: 3px;
+  border-top: none;
+  border-bottom-left-radius: 3px;
+  border-botttom-right-radius: 3px;
 
   display: flex;
   justify-content: space-around;
@@ -226,5 +239,5 @@ button {
 .loading {
   text-align: center;
   padding: 20px 0;
-  color: #666;
+  color: #add8e6;
 }
