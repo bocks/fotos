@@ -48,7 +48,7 @@ A story arc can now be compiled into a single collage and posted to that user's 
 
 ### Database Schema
 
-![DBschema](https://raw.githubusercontent.com/formidable-coffee/fotos/master/server/db/Screen%20Shot%202016-05-30%20at%2015.16.35.png)
+![DBschema](mockups/schema.png)
 
 ## Team
 
