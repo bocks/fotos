@@ -35,7 +35,7 @@ class Main extends React.Component {
   submitHandler (startDate, endDate, endpoint, arcId, updateDOM) {
 
       FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate+'&access_token='+sessionStorage.getItem('access_token'), function (response) {
-        console.log('submitHandler response', response);
+
         var data = {
           id: sessionStorage.getItem('fbId'),
           photos: response
@@ -48,20 +48,16 @@ class Main extends React.Component {
         data.startDate = startDate;
         data.endDate = endDate;
 
-        // console.log('Data from submitHandler ===============>', data);
-
-        // console.log('submitHandler data', data);
-        // console.log('No picture ==================>', data.photos.data.length);
-        if ( data.photos.data.length > 0 ) {
+        if (data.photos.data.length === 0) {
+          updateDOM();
+        } else {
           $.post({
             url: endpoint,
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function() {
               console.log('SUCCESS in submitHandler');
-              if (updateDOM) {
-                updateDOM();
-              }
+              updateDOM();
               hashHistory.push('dashboard');
             },
             error: function(err) {
