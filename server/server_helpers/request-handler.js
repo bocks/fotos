@@ -282,13 +282,27 @@ module.exports.dashboard = {
         // console.log('saved blacklisted item to db', req.body);
 
         minimizeAndRandArr(req.body.photos.data, 1, function(result) {
-          // console.log('sending replacement: ', result);
-          res.json(result);
-          res.end();
+          var replacement = result[0].images[0];
+          var newImage = {
+            height: replacement.height,
+            width: replacement.width,
+            url: replacement.source
+          };
 
-          // find the image we want to replace in db
-          // swap out its info with this one
-          // rerender dashboard page on client side
+          Images.reset()
+            .query({where: {url: req.body.imageUrl}})
+            .fetch()
+            .then(function(toReplace) {
+              // console.log('replacement id----->', toReplace.models[0].id);
+
+              new Image({ id: toReplace.models[0].id })
+                .save(newImage, {patch: true})
+                .then(function(newImage) {
+                  // console.log('imgs has been updated => ', newImage);
+                  res.end();
+                });
+
+            });
         });
       });
     }
