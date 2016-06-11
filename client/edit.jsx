@@ -12,7 +12,8 @@ class Edit extends React.Component {
       startDate: null,
       endDate: null,
       // options: null,
-      visible: ['none', 'none']
+      visible: ['none', 'none'],
+      message: ''
     };
     this.swapVisibility = this.swapVisibility.bind(this);
     this.removeGallery = this.removeGallery.bind(this);
@@ -33,6 +34,13 @@ class Edit extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
+
+    if (this.state.startDate > this.state.endDate) {
+      this.setState({
+        message: 'Please select a valid date range'
+      });
+      return;
+    }
 
     // Make sure the startDate is before or the same as the endDate
     if ( this.state.startDate <= this.state.endDate ) {
@@ -66,6 +74,9 @@ class Edit extends React.Component {
             <button onClick={this.swapVisibility.bind(this, 0)}>Select</button>
             <div className='inputForm' style={{ 'display': this.state.visible[0] }}>
               <form>
+                <div className='loading' style={ this.state.message.length > 0 ? {'display': 'block'} : {'display': 'none'} }>
+                  { this.state.message }
+                </div>
                 <div>
                   <button><Link to={'/post/' + this.props.photoArc[0].arcId}>Share Collage</Link></button>
                   <button type="submit" onClick={this.swapVisibility.bind(this, 1)}>Change Dates</button>
