@@ -304,6 +304,20 @@ module.exports.dashboard = {
                   res.end();
                 });
 
+              // Retrieve new arc images are recreate collage
+              Images.reset()
+                .query({where: {arc_id: req.body.arcId}})
+                .fetch()
+                .then(function (images) {
+                  var collageArray = [];
+
+                  images.models.forEach(function(image) {
+                    collageArray.push(image.attributes.url);
+                  });
+
+                  Collage.collagify(collageArray, req.body.arcId);
+                });
+
             });
         });
       });

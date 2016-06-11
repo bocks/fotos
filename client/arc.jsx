@@ -57,6 +57,7 @@ class Arc extends React.Component {
 
         // grab the id of the image we'd like to remove as well as the collection of replacement photo options
         var data = {
+          arcId: obj.arcId,
           imageUrl: obj.src,
           userId: obj.userId,
           photos: response
