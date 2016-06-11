@@ -198,3 +198,7 @@ button {
 .edit-panel {
   margin-top: 10px;
 }
+
+.share-link {
+  display: inline-block;
+}
