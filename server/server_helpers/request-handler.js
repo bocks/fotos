@@ -220,52 +220,57 @@ module.exports.dashboard = {
         var startDate = req.body.startDate;
         var endDate = req.body.endDate;
 
-        var imgUrl = minimizeAndRandArr(req.body.photos.data, limit);
-
-        Arc.forge({id: arcId})
-          .fetch()
-          .then( function(arc) {
-
-            var dates = {
-              query_start_date: startDate,
-              query_end_date: endDate
-            };
-
-            arc.save(dates, {patch: true});
-          })
-
-        Images.reset()
-          .query({where: {arc_id: arcId}})
-          .fetch()
-          .then(function (images) {
-            var collageArray = [
-              imgUrl[0].images[0].source,
-              imgUrl[1].images[0].source,
-              imgUrl[2].images[0].source,
-              imgUrl[3].images[0].source
-            ];
-            Collage.collagify(collageArray, arcId);
-
-              for (var imgId = 0; imgId < imgUrl.length; imgId++) {
-                var imgSizeArr = imgUrl[imgId].images;
-                  var img = imgSizeArr[0];
+        minimizeAndRandArr(req.body.photos.data, limit, function(imgUrl) {
+          console.log('in minAndRand------>', imgUrl);
 
 
-                  var image = {
-                    height: img.height,
-                    width: img.width,
-                    url: img.source
-                  };
+          Arc.forge({id: arcId})
+            .fetch()
+            .then( function(arc) {
 
-                  new Image({id: images.models[imgId].id})
-                    .save(image, {patch: true})
-                    .then(function(image) {
-                      console.log('imgs has been updated => ', image);
-                    });
+              var dates = {
+                query_start_date: startDate,
+                query_end_date: endDate
+              };
 
+              arc.save(dates, {patch: true});
+            })
+
+          Images.reset()
+            .query({where: {arc_id: arcId}})
+            .fetch()
+            .then(function (images) {
+              var collageArray = [];
+
+              for (var i = 0; i < imgUrl.length; i++) {
+                if (imgUrl[i]) {
+                  collageArray.push(imgUrl[i].images[0].source);
                 }
-              });
-        res.send('success');
+              }
+
+              Collage.collagify(collageArray, arcId);
+
+                for (var imgId = 0; imgId < imgUrl.length; imgId++) {
+                  var imgSizeArr = imgUrl[imgId].images;
+                    var img = imgSizeArr[0];
+
+
+                    var image = {
+                      height: img.height,
+                      width: img.width,
+                      url: img.source
+                    };
+
+                    new Image({id: images.models[imgId].id})
+                      .save(image, {patch: true})
+                      .then(function(image) {
+                        console.log('imgs has been updated => ', image);
+                      });
+
+                  }
+                });
+            res.send('success');
+        });
     },
 
     // TODO: check for duplicates in blacklist table
