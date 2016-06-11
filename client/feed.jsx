@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Arc from './arc';
 import $ from 'jquery';
 import Edit from './edit';
-import { Link, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 // expecting to be passed an array of urls in props
 
@@ -26,7 +26,7 @@ class Feed extends React.Component {
 
     // var self = this;
     $.get('/dashboard', {user_id: sessionStorage.getItem('fbId')}, function(data) {
-      console.log("Data from db =>", data);
+      // console.log("Data from db =>", data);
 
       // data = data.filter(function(val) {
       //   console.log(val);
@@ -48,38 +48,37 @@ class Feed extends React.Component {
   }
 
   render() {
+
     return (
-      !this.state.arcs[0] ? <div> Loading... </div> :
-          <div>
-            <h2 className="page-title">Your Stories</h2>
-            <div className="gallery-container">
-             {this.state.arcs.map((arc, i) => {
-               return (
-                <div>
-                  <Arc key={this.state.count++} getData={this.getData.bind(this)} photoArc={arc} />
-                  <div className="arc-date">
-                    <span>From {this.state.arcs[i][0].startDate.toString().slice(0, 10)}  </span>
-                    <span>to  {this.state.arcs[i][0].endDate.toString().slice(0, 10)}</span>
-                  </div>
 
-
-
-
-
-
-
-                  <Edit photoArc={arc} arcs={this.state.arcs} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
-                </div>
-               );}
-             )}
+        <div>
+          <h2 className="page-title">Your Stories</h2>
+          <div className="gallery-container">
+            <div className="loading" style={ this.state.arcs.length === 0 ? {'display': 'block'} : {'display': 'none'} }>
+              No Stories to Display...
             </div>
-          </div>
+
+              { this.state.arcs.map((arc, i) => {
+                if (this.state.arcs[i][0]) {
+                  return (
+                    <div>
+                      <Arc key={this.state.count++} getData={this.getData.bind(this)} photoArc={arc} />
+                      <div className="arc-date">
+                        <span>From {this.state.arcs[i][0].startDate.toString().slice(0, 10)}  </span>
+                        <span>to {this.state.arcs[i][0].endDate.toString().slice(0, 10)}</span>
+                      </div>
+                      <Edit photoArc={arc} arcs={this.state.arcs} getData={this.getData.bind(this)} submitHandler={this.props.submitHandler}/>
+                    </div>
+                  );
+                }
+              })
+            }
+
+        </div>
+      </div>
     );
-
   }
-
 };
-
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated
