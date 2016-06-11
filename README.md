@@ -10,11 +10,15 @@ Our team added the following features to the existing [formidable-coffee/fotos](
 
 ### Edit & Delete Story Arcs
 
+![Edit & Delete Story Arcs](mockups/screen-edit-story-arcs.png)
+
 ### Swap & Blacklist Photos from Story Arcs
 
-### Create Photo Collage from Story Arcs
+![Swap & Blacklist Photos from Story Arcs](mockups/screen-swap-photos.png)
 
-### Share Photo Collage to Facebook Timeline
+### Create Photo Collage & Share to Facebook
+
+![Create Photo Collage & Share to Facebook](mockups/screen-photo-collage.png)
 
 ## Technology
 
