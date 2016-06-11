@@ -6,7 +6,8 @@ class Form extends React.Component {
 		this.state = {
 			startDate: null,
 			endDate: null,
-			options: null
+			options: null,
+      message: ''
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.dropdownSelect = this.dropdownSelect.bind(this);
@@ -14,14 +15,18 @@ class Form extends React.Component {
 
 	handleSubmit (e) {
 		e.preventDefault();
-		// console.log("start is", this.state.startDate);
-		// console.log("end is", this.state.endDate);
+
+    if (this.state.startDate > this.state.endDate) {
+      this.setState({
+        message: 'Please select a valid date range'
+      });
+      return;
+    }
 
     // Make sure the startDate is before or the same as the endDate
     if ( this.state.startDate <= this.state.endDate ) {
       this.props.submitHandler(this.state.startDate, this.state.endDate, '/create');
     }
-
 	}
 
 	dropdownSelect (e) {
@@ -29,12 +34,14 @@ class Form extends React.Component {
 	}
 
 	render () {
-    console.log('rendering form.jsx');
 		return (
       <div>
         <h2 className='page-title'>Create New Story</h2>
   			<div className='inputForm'>
           <form>
+            <div className='loading' style={ this.state.message.length > 0 ? {'display': 'block'} : {'display': 'none'} }>
+              { this.state.message }
+            </div>
             <p className='inputs'>
   					 <label>Start Date: </label>
              <input type="date" name="startDate" className="datePicker" onChange={(event)=> this.setState({startDate: event.target.value})} />
@@ -57,7 +64,6 @@ class Form extends React.Component {
       </div>
 		)
 	}
-
 };
 
 export default Form;

@@ -6,7 +6,6 @@ import Edit from './edit';
 import { hashHistory } from 'react-router';
 
 // expecting to be passed an array of urls in props
-
 class Feed extends React.Component {
   constructor(props) {
     super(props);
@@ -14,8 +13,6 @@ class Feed extends React.Component {
       arcs: [],
       count: 0
     }
-    // this.componentDidMount.bind(this);
-    // this.getData.bind(this);
   }
 
   componentDidMount() {
@@ -23,34 +20,16 @@ class Feed extends React.Component {
   }
 
   getData() {
-
-    // var self = this;
-    $.get('/dashboard', {user_id: sessionStorage.getItem('fbId')}, function(data) {
-      // console.log("Data from db =>", data);
-
-      // data = data.filter(function(val) {
-      //   console.log(val);
-      //   if (val.length > 0) {
-      //     self.state.arcs.push(val);
-      //     console.log('filter function', self.state.arcs);
-      //     self.forceUpdate();
-
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // });
-
-      this.setState({arcs: data.reverse()});
-      // console.log(this.state.arcs);
-      // console.log('state is: ', this.state.arcs);
-    }.bind(this));
+    $.get('/dashboard', {
+        user_id: sessionStorage.getItem('fbId')
+      }, function(data) {
+        this.setState({arcs: data.reverse()});
+      }.bind(this));
   }
 
   render() {
 
     return (
-
         <div>
           <h2 className="page-title">Your Stories</h2>
           <div className="gallery-container">
