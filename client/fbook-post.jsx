@@ -17,7 +17,6 @@ class FacebookPost extends React.Component {
   shareCollageToFacebook() {
     console.log('shareCollageToFacebook Called');
     this.setState({ statusMsg: 'Uploading your collage...' });
-
     FB.api(
       'me/photos',
       'post',
@@ -31,6 +30,7 @@ class FacebookPost extends React.Component {
         if (response.id) {
           console.log('FacebookPost shareCollageToFacebook Success');
           this.setState({ statusMsg: 'Shared to timeline!' });
+          hashHistory.push('dashboard');
         }
       }.bind(this)
     );
@@ -38,14 +38,16 @@ class FacebookPost extends React.Component {
 
   render() {
     console.log('FacebookPost render');
-
+    var statusStyle = {
+      color: 'navy'
+    };
     return (
       <div>
         <h2 className="page-title">Share Your Collage</h2>
         <div className="gallery-container">
           <div><img src={this.state.photoUrl} /></div>
           <div><button type="button" onClick={this.shareCollageToFacebook.bind(this)}>Share on Facebook</button></div>
-          <div className="statusMsg">{this.state.statusMsg}</div>
+          <div style={statusStyle} className="statusMsg">{this.state.statusMsg}</div>
         </div>
       </div>
     )
