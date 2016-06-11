@@ -213,3 +213,9 @@ button {
 .share-link {
   display: inline-block;
 }
+
+.loading {
+  text-align: center;
+  padding: 20px 0;
+  color: #666;
+}
