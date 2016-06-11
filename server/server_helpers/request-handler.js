@@ -187,13 +187,11 @@ module.exports.dashboard = {
 
     delete: function(req, res) {
       var arcId = req.body.arcId;
-      console.log(arcId);
 
       Images.reset()
         .query({where: {arc_id: arcId}})
         .fetch()
         .then(function(images) {
-          console.log(images.models);
 
           images.models.forEach(function(image) {
             Image.forge({id: image.id})
@@ -210,13 +208,13 @@ module.exports.dashboard = {
               arc.destroy()
               .then(function() {
                 Collage.delete(arcId);
-                console.log('Delete complete');
                 res.send('Delete worked.');
               });
             });
         });
       },
 
+    // TODO: check that this still works
     post: function(req, res) {
         var arcId = req.body.arcId;
         var startDate = req.body.startDate;
@@ -270,23 +268,28 @@ module.exports.dashboard = {
         res.send('success');
     },
 
-    swap: function(res, req) {
-      // TODO: check for duplicates
+    // TODO: check for duplicates in blacklist table
+    swap: function(req, res) {
 
       // blacklist this image
       var blacklist = new Blacklist();
 
       blacklist.save({
-        user_id: res.body.userId,
-        url: res.body.imageUrl
-      }).then( function() {
-        console.log('saved blacklisted item to db');
+        user_id: req.body.userId,
+        url: req.body.imageUrl
+      })
+      .then( function() {
+        // console.log('saved blacklisted item to db', req.body);
+
+        minimizeAndRandArr(req.body.photos.data, 1, function(result) {
+          // console.log('sending replacement: ', result);
+          res.json(result);
+          res.end();
+
+          // find the image we want to replace in db
+          // swap out its info with this one
+          // rerender dashboard page on client side
+        });
       });
-
-      // res.end();
-     // api call to FB for replacement
-     // update image with new url, height, width
-     // re render page
-
     }
 };
