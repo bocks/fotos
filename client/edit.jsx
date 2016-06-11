@@ -57,7 +57,6 @@ class Edit extends React.Component {
   }
 
   render() {
-    console.log('revised:',this.props.photoArc.arcId);
     return (
           <div className='edit-panel'>
             <button onClick={this.swapVisibility.bind(this)}>Select</button>
@@ -66,7 +65,7 @@ class Edit extends React.Component {
                 <div>
                   <button onClick={this.removeGallery.bind(this.props.photoArc)}>Remove</button>
                   <button type="submit" onClick={this.handleSubmit.bind(this)}>Change Dates</button>
-                  <div className='share-link'><Link to={'/post/' + this.props.photoArc.arcId           }><button>Share Collage</button></Link></div>
+                  <div className='share-link'><Link to={'/post/' + this.props.photoArc[0].arcId}><button>Share Collage{this.props.photoArc[0].arcId}</button></Link></div>
                 </div>
                 <p className='inputs'>
                  <label>Start Date: </label>
