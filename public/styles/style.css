@@ -110,6 +110,8 @@
 
 .gallery-container .statusMsg {
   min-height: 30px;
+  color: #4e5d6c;
+  font-weight: bold;
 }
 
 .gallery-container .arc-wrap {

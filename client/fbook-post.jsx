@@ -31,6 +31,8 @@ class FacebookPost extends React.Component {
         if (response.id) {
           console.log('FacebookPost shareCollageToFacebook Success');
           this.setState({ statusMsg: 'Shared to timeline!' });
+
+          setTimeout(function() { hashHistory.push('dashboard') }, 4000);
         }
       }.bind(this)
     );
