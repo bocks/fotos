@@ -19,11 +19,14 @@ class Feed extends React.Component {
     this.getData();
   }
 
-  getData() {
+  getData(cb) {
     $.get('/dashboard', {
         user_id: sessionStorage.getItem('fbId')
       }, function(data) {
         this.setState({arcs: data.reverse()});
+        if (cb) {
+          cb();
+        }
       }.bind(this));
   }
 

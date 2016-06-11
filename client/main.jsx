@@ -32,7 +32,7 @@ class Main extends React.Component {
      }(document, 'script', 'facebook-jssdk'));
   }
 
-  submitHandler (startDate, endDate, endpoint, arcId, updateDOM) {
+  submitHandler (startDate, endDate, endpoint, arcId, errorCallback, successCallback) {
 
       FB.api('me/photos?fields=images,created_time&limit=2000&type=uploaded&until='+endDate+'&since='+startDate+'&access_token='+sessionStorage.getItem('access_token'), function (response) {
 
@@ -49,7 +49,7 @@ class Main extends React.Component {
         data.endDate = endDate;
 
         if (data.photos.data.length === 0) {
-          updateDOM();
+          errorCallback();
         } else {
           $.post({
             url: endpoint,
@@ -57,7 +57,9 @@ class Main extends React.Component {
             contentType: 'application/json',
             success: function() {
               console.log('SUCCESS in submitHandler');
-              updateDOM();
+              if (successCallback) {
+                successCallback();
+              }
               hashHistory.push('dashboard');
             },
             error: function(err) {

@@ -17,7 +17,6 @@ class Form extends React.Component {
     this.setState({
       message: 'No photos to display in this date range'
     });
-    return;
   }
 
 	handleSubmit (e) {

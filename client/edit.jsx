@@ -11,33 +11,46 @@ class Edit extends React.Component {
     this.state = {
       startDate: null,
       endDate: null,
-      // options: null,
-      visible: ['none', 'none']
+      visible: ['none', 'none'],
+      message: ''
     };
     this.swapVisibility = this.swapVisibility.bind(this);
     this.removeGallery = this.removeGallery.bind(this);
-    // this.dropdownSelect = this.dropdownSelect.bind(this);
+    this.showNoPhoto = this.showNoPhoto.bind(this);
+    this.togglePanel = this.togglePanel.bind(this);
   }
 
-  // dropdownSelect (e) {
-  //   this.setState({options: e.target.value});
-  // }
+  showNoPhoto () {
+    this.setState({
+      visible: ['block', 'block'],
+      message: 'No photos to display in this date range'
+    });
+  }
 
   // target index is bound to click handler
   swapVisibility() {
     var val = (this.state.visible[arguments[0]] === 'none') ? 'block' : 'none';
     var arr = this.state.visible.slice();
     arr[arguments[0]] = val;
-    this.setState({visible: arr});
+    return arr;
+  }
+
+  togglePanel(index) {
+    this.setState({ visible: this.swapVisibility(index) });
   }
 
   handleSubmit (e) {
     e.preventDefault();
 
+    if (this.state.startDate > this.state.endDate) {
+      this.setState({
+        message: 'Please select a valid date range'
+      });
+    }
+
     // Make sure the startDate is before or the same as the endDate
     if ( this.state.startDate <= this.state.endDate ) {
-      this.props.submitHandler(this.state.startDate, this.state.endDate, '/update', this.props.photoArc[0].arcId, this.props.getData.bind(this));
-      this.swapVisibility(0);
+      this.props.submitHandler(this.state.startDate, this.state.endDate, '/update', this.props.photoArc[0].arcId, this.showNoPhoto.bind(this), this.props.getData.bind(this, this.togglePanel.bind(this, 0)));
     }
   }
 
@@ -53,7 +66,8 @@ class Edit extends React.Component {
       .done(function(res) {
         context.props.getData();
         // close edit panel before removing storyArc
-        context.swapVisibility(0);
+        var swap = context.swapVisibility(0);
+        context.setState({visible: swap});
       });
     } else {
       console.log(this.props.photoArc[0]);
@@ -63,12 +77,15 @@ class Edit extends React.Component {
   render() {
     return (
           <div className='edit-panel'>
-            <button onClick={this.swapVisibility.bind(this, 0)}>Select</button>
+            <button onClick={this.togglePanel.bind(this, 0)}>Select</button>
             <div className='inputForm' style={{ 'display': this.state.visible[0] }}>
               <form>
+                <div className='loading' style={ this.state.message.length > 0 ? {'display': 'block'} : {'display': 'none'} }>
+                  { this.state.message }
+                </div>
                 <div>
                   <button><Link to={'/post/' + this.props.photoArc[0].arcId}>Share Collage</Link></button>
-                  <button type="submit" onClick={this.swapVisibility.bind(this, 1)}>Change Dates</button>
+                  <button type="submit" onClick={this.togglePanel.bind(this, 1)}>Change Dates</button>
                   <button onClick={this.removeGallery.bind(this.props.photoArc)}>Delete</button>
                 </div>
                 <fieldset className='loading' style={{ 'display': this.state.visible[1] }}>
