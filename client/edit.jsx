@@ -9,23 +9,26 @@ class Edit extends React.Component {
     super(props);
 
     this.state = {
-      visible: 'none',
       startDate: null,
       endDate: null,
-      options: null
+      // options: null,
+      visible: ['none', 'none']
     };
     this.swapVisibility = this.swapVisibility.bind(this);
     this.removeGallery = this.removeGallery.bind(this);
-    this.dropdownSelect = this.dropdownSelect.bind(this);
+    // this.dropdownSelect = this.dropdownSelect.bind(this);
   }
 
-  dropdownSelect (e) {
-    this.setState({options: e.target.value});
-  }
+  // dropdownSelect (e) {
+  //   this.setState({options: e.target.value});
+  // }
 
+  // target index is bound to click handler
   swapVisibility() {
-    var val = (this.state.visible === 'none') ? 'block' : 'none';
-    this.setState({ visible: val });
+    var val = (this.state.visible[arguments[0]] === 'none') ? 'block' : 'none';
+    var arr = this.state.visible.slice();
+    arr[arguments[0]] = val;
+    this.setState({visible: arr});
   }
 
   handleSubmit (e) {
@@ -34,6 +37,7 @@ class Edit extends React.Component {
     // Make sure the startDate is before or the same as the endDate
     if ( this.state.startDate <= this.state.endDate ) {
       this.props.submitHandler(this.state.startDate, this.state.endDate, '/update', this.props.photoArc[0].arcId, this.props.getData.bind(this));
+      this.swapVisibility(0);
     }
   }
 
@@ -49,7 +53,7 @@ class Edit extends React.Component {
       .done(function(res) {
         context.props.getData();
         // close edit panel before removing storyArc
-        context.swapVisibility();
+        context.swapVisibility(0);
       });
     } else {
       console.log(this.props.photoArc[0]);
@@ -59,22 +63,25 @@ class Edit extends React.Component {
   render() {
     return (
           <div className='edit-panel'>
-            <button onClick={this.swapVisibility.bind(this)}>Select</button>
-            <div className='inputForm' style={{ 'display': this.state.visible }}>
+            <button onClick={this.swapVisibility.bind(this, 0)}>Select</button>
+            <div className='inputForm' style={{ 'display': this.state.visible[0] }}>
               <form>
                 <div>
-                  <button type="submit" onClick={this.handleSubmit.bind(this)}>Change Dates</button>
+                  <button type="submit" onClick={this.swapVisibility.bind(this, 1)}>Change Dates</button>
                   <button onClick={this.removeGallery.bind(this.props.photoArc)}>Delete</button>
-                  <div className='share-link'><Link to={'/post/' + this.props.photoArc[0].arcId}><button>Share Collage</button></Link></div>
-                  </div>
-                <p className='inputs'>
-                 <label>Start Date: </label>
-                 <input type="date" name="startDate" className="datePicker" onChange={(event)=> this.setState({startDate: event.target.value})} />
-                </p>
-                <p className='inputs'>
-                  <label>End Date: </label>
-                  <input type="date" name="endDate" className="datePicker" onChange={(event)=> this.setState({endDate: event.target.value})} />
-                </p>
+                  <button><Link to={'/post/' + this.props.photoArc[0].arcId}>Share Collage</Link></button>
+                </div>
+                <fieldset className='loading' style={{ 'display': this.state.visible[1] }}>
+                  <p className='inputs'>
+                   <label>Start Date: </label>
+                   <input type="date" name="startDate" className="datePicker" onChange={(event)=> this.setState({startDate: event.target.value})} />
+                  </p>
+                  <p className='inputs'>
+                    <label>End Date: </label>
+                    <input type="date" name="endDate" className="datePicker" onChange={(event)=> this.setState({endDate: event.target.value})} />
+                  </p>
+                  <button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</button>
+                </fieldset>
               {/* <select onChange={this.dropdownSelect}>
                   <option></option>
                   <option value="filter1">Photos of me</option>
